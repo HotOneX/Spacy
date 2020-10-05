@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class UIAndScores : MonoBehaviour
 {
     [HideInInspector]
-    public bool damaged;
+    public static bool GameisStarted;
     public Material[] materials1;
     public Material[] materials2;
     public Material[] materials3;
@@ -28,13 +28,12 @@ public class UIAndScores : MonoBehaviour
     private void Awake()
     {
         Application.targetFrameRate = 60;
-        damaged = false;
         rend = Player1.GetComponent<Renderer>();
     }
     // Start is called before the first frame update
     void Start()
     {
-        //gameOverText.text = "";
+        GameisStarted = false;
         restartButton.SetActive(false);
         colormenu.SetActive(true);
         score = 0;
@@ -78,6 +77,7 @@ public class UIAndScores : MonoBehaviour
             Player2.SetActive(true);
         }
         colormenu.SetActive(false);
+        GameisStarted = true;
         spawnController.StartGame();
     }
     IEnumerator SetActiveRestart()
