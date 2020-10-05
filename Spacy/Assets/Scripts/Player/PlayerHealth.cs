@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
-    private bool damaged;
+    public bool damaged;
     private Animator Anim;
     public int life;
     public Image[] LifeImages;
