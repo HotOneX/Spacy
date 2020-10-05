@@ -12,7 +12,6 @@ public class ToggleUI : MonoBehaviour
     public GameObject checkMark;
     public float t = 0.0f;
     public float moveSpeed;
-    //public RectTransform toggle;
 
     private RectTransform checkMarkTransform;
     private Color backgroundColorON = new Color(110f / 255f, 214f / 255f, 119f / 255f, 1f);
@@ -26,38 +25,26 @@ public class ToggleUI : MonoBehaviour
     {
         checkMarkTransform = checkMark.GetComponent<RectTransform>();
         checkMarkSize = checkMarkTransform.sizeDelta.x;
-        backgroundColor = background.GetComponent<Image>();
-        
+        backgroundColor = background.GetComponent<Image>();      
     }
-    // Start is called before the first frame update
+
     void Start()
-    {
-        
+    { 
         if (isOn)
         {
             checkMarkTransform.localPosition = new Vector3(-27, 0, 0);
-            backgroundColor.color = backgroundColorON;
-            
+            backgroundColor.color = backgroundColorON; 
         }
         else
         {
             checkMarkTransform.localPosition = new Vector3(27, 0, 0);
             backgroundColor.color = backgroundColorOff;
         }
-
-        Debug.Log(backgroundColor.color);
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (switching)
-        {
-            StartToggling(isOn);
-        }
-
-        //Debug.Log(switching);
-        //Debug.Log(checkMarkTransform.localPosition);
+        if (switching) StartToggling(isOn);
     }
 
     private void StartToggling(bool tStatus)
@@ -72,8 +59,6 @@ public class ToggleUI : MonoBehaviour
             checkMarkTransform.localPosition = SmoothlyMove(checkMark, 27, -27);
             backgroundColor.color = backgroundColorON;
         }
-
-        //Debug.Log(checkMarkTransform.localPosition);
     }
 
     private Vector3 SmoothlyMove(GameObject checkMark, float startPos, float endPos)
@@ -89,22 +74,12 @@ public class ToggleUI : MonoBehaviour
         {
             switching = false;
             t = 0;
-
-            switch (isOn)
-            {
-                case true:
-                    isOn = false;
-                    break;
-                case false:
-                    isOn = true;
-                    break;
-            }
+            isOn = !isOn;
         }
     }
 
     public void Switch()
     {
         switching = true;
-        Debug.Log(switching);
     }
 }
