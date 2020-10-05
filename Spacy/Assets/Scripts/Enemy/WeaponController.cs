@@ -21,14 +21,10 @@ public class WeaponController : MonoBehaviour
 	}
 	void Fire()
 	{
-        if (Random.value <= 0.2)
-        {
-            foreach (var shotSpawn in shotSpawns)
-            {
-                Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
-            }
-            audioSource.Play();
-        }
-        else return;
+		foreach (var shotSpawn in shotSpawns)
+		{
+			Instantiate (shot, shotSpawn.position, shotSpawn.rotation);
+		}
+		audioSource.Play ();
 	}
 }
