@@ -9,10 +9,10 @@ public class animationControll : MonoBehaviour
     void Start()
     {
         Anim = GetComponent<Animator>();
-        StartCoroutine(animationPlay());
+        StartCoroutine(AnimationPlay());
     }
 
-    IEnumerator animationPlay()
+    private IEnumerator AnimationPlay()
     {
         while(true)
         {
