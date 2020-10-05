@@ -1568,6 +1568,7 @@ ParticleSystem:
         m_NumColorKeys: 2
         m_NumAlphaKeys: 2
   UVModule:
+    serializedVersion: 2
     enabled: 0
     mode: 0
     timeMode: 0
@@ -1685,7 +1686,7 @@ ParticleSystem:
     rowIndex: 0
     cycles: 1
     uvChannelMask: -1
-    randomRow: 1
+    rowMode: 1
     sprites:
     - sprite: {fileID: 0}
     flipU: 0
@@ -2496,8 +2497,61 @@ ParticleSystem:
     inWorldSpace: 0
     randomizePerFrame: 0
   ExternalForcesModule:
+    serializedVersion: 2
     enabled: 0
-    multiplier: 1
+    multiplierCurve:
+      serializedVersion: 2
+      minMaxState: 0
+      scalar: 1
+      minScalar: 1
+      maxCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      minCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
     influenceFilter: 0
     influenceMask:
       serializedVersion: 2
@@ -4847,7 +4901,7 @@ ParticleSystem:
 --- !u!199 &1751562396886576670
 ParticleSystemRenderer:
   serializedVersion: 6
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -4859,6 +4913,7 @@ ParticleSystemRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
@@ -4871,6 +4926,7 @@ ParticleSystemRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -5039,6 +5095,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -5052,6 +5109,7 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -5089,7 +5147,8 @@ AudioSource:
   m_GameObject: {fileID: 1751562397424239659}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 221ea11eb1528f2438dd1415773e99b4,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: bf75b984df8a84987bcf3a8bf6e2862d, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -5186,9 +5245,9 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 3
+  serializedVersion: 4
   m_Convex: 1
-  m_CookingOptions: 14
+  m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: a2f1ee8ac6fc8754cb64dc0ac6f1e3fb, type: 3}
 --- !u!95 &1751562397424206473
 Animator:
@@ -5221,26 +5280,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92eda0162f190dd4389e111c7dfbc889, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pauseUI: {fileID: 0}
+  WeponAudio:
+  - {fileID: 0}
+  powerCounts: 000000000000000000000000
+  PowerUpText: []
+  slowmotion: 0.1
+  TimeShift: 0.2
+  FireRate: []
+  ShotSpawns: []
+  Bullets:
+    MainBullet: []
+    AcidBullet: []
+  AcidShotStart: {fileID: 0}
+  newPower: 0
+  WeaponNumber: 0
+  weaponLevel: 0
   rb: {fileID: 1751562397424206477}
-  Speed: 60
   boundary:
     xMin: -5.2
     xMax: 5.2
     zMin: -5.5
     zMax: 10
+  Speed: 60
   tiltspeed: 5
-  slowmotion: 0.1
-  TimeShift: 0.2
-  Shots:
-  - {fileID: 1751562396904730369}
-  - {fileID: 5604580162363367835}
-  - {fileID: 9112644887678619663}
-  - {fileID: 4338778432414376949}
-  Shot: {fileID: 149800, guid: 8a6f5218e41008a48a79e7f9d6abe661, type: 3}
-  FireRate: 0.25
-  WeponAudio: {fileID: 1751562397424206479}
-  newPower: 0
-  newWeapon: 0
 --- !u!1 &1751562397735335875
 GameObject:
   m_ObjectHideFlags: 0
@@ -5764,15 +5827,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1751562397423818763}
     m_Modifications:
-    - target: {fileID: 9069691924579226848, guid: 8ac372d6c58763d4584c981b6690e815,
+    - target: {fileID: 3174303603287655963, guid: 8ac372d6c58763d4584c981b6690e815,
         type: 3}
-      propertyPath: m_Name
-      value: Shield
-      objectReference: {fileID: 0}
-    - target: {fileID: 9069691924579226848, guid: 8ac372d6c58763d4584c981b6690e815,
-        type: 3}
-      propertyPath: m_IsActive
+      propertyPath: m_UseGravity
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3174303603287655963, guid: 8ac372d6c58763d4584c981b6690e815,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9069691924578928832, guid: 8ac372d6c58763d4584c981b6690e815,
         type: 3}
@@ -5844,15 +5907,15 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 160.00009
       objectReference: {fileID: 0}
-    - target: {fileID: 3174303603287655963, guid: 8ac372d6c58763d4584c981b6690e815,
+    - target: {fileID: 9069691924579226848, guid: 8ac372d6c58763d4584c981b6690e815,
         type: 3}
-      propertyPath: m_UseGravity
-      value: 0
+      propertyPath: m_Name
+      value: Shield
       objectReference: {fileID: 0}
-    - target: {fileID: 3174303603287655963, guid: 8ac372d6c58763d4584c981b6690e815,
+    - target: {fileID: 9069691924579226848, guid: 8ac372d6c58763d4584c981b6690e815,
         type: 3}
-      propertyPath: m_IsKinematic
-      value: 1
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8ac372d6c58763d4584c981b6690e815, type: 3}
