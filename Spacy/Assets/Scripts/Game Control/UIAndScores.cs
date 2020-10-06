@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class UIAndScores : MonoBehaviour
 {
@@ -13,9 +15,12 @@ public class UIAndScores : MonoBehaviour
     private Renderer rend;
     public GameObject colormenu;
 
+    public GameObject pauseUI;
+    public static int[] powerCounts = { 0, 0, 0 };
+    public TextMeshProUGUI[] PowerUpText;
+
     public Text scoreText;
     public GameObject gameOverText;
-    //public GameObject levelCompleteText;
     public GameObject restartButton;
 
     public GameObject Player1;
@@ -30,7 +35,6 @@ public class UIAndScores : MonoBehaviour
         Application.targetFrameRate = 60;
         rend = Player1.GetComponent<Renderer>();
     }
-    // Start is called before the first frame update
     void Start()
     {
         GameisStarted = false;
@@ -39,6 +43,33 @@ public class UIAndScores : MonoBehaviour
         score = 0;
         AddScore(0);
     }
+
+    private void Update()
+    {
+        if(Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject())
+        {
+            if (pauseUI.activeSelf == true)
+            {
+                pauseUI.SetActive(false);
+            }
+            if(PlayerController.newPower==1)
+            {
+                Time.timeScale = 0.2f;
+            }
+            else Time.timeScale = 1f;
+        }
+        else
+        {
+            if (GameisStarted && pauseUI.activeSelf == false)
+            {
+                pauseUI.SetActive(true);
+            }
+            Time.timeScale = 0.1f;
+        }
+        Time.fixedDeltaTime = Time.timeScale * 0.02f;
+    }
+
+
 
     public void AddScore(int NewScoreValue)
     {
