@@ -2,7 +2,7 @@
 using UnityEngine.EventSystems;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
+
 
 [System.Serializable]
 public class Boundary
@@ -11,20 +11,19 @@ public class Boundary
 }
 public class PlayerController : MonoBehaviour
 {
-    public GameObject pauseUI;
     public AudioSource[] WeponAudio;
     [Header("PowerUp")]
-    public int[] powerCounts = { 0, 0, 0 };
-    public TextMeshProUGUI[] PowerUpText;
-    public float slowmotion;
     public float TimeShift;
+    public UIAndScores UIAndScores;
+    public GameObject powers;
 
     [Header("Shot Settings")]
     public float[] FireRate;
     public Transform[] ShotSpawns;
     public Properties Bullets;
     public ParticleSystem AcidShotStart;
-    public int newPower, WeaponNumber, weaponLevel;
+    public static int newPower;
+    public int WeaponNumber, weaponLevel;
     private float NextFire;
     private Quaternion BoltRotation;
 
@@ -121,10 +120,7 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject())//the event system is for stop using getmouseButton when pressing a UI button or text
         {
-            if(pauseUI.activeSelf==true)
-            {
-                pauseUI.SetActive(false);
-            }
+            
             if (k)
             {
                 mousepos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0.0f));
@@ -132,43 +128,28 @@ public class PlayerController : MonoBehaviour
                 k = false;
                 distance = new Vector3(playerpos.x - mousepos.x, playerpos.y - mousepos.y, playerpos.z - mousepos.z);
             }
-            //Debug.Log(Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0.0f)));
-            if (newPower == 1)
+            /*if (newPower == 1)
             {
                 Time.timeScale = TimeShift;
-                Time.fixedDeltaTime = Time.timeScale * 0.02f;//ijan sorate khondane fixedUpdate haro avaz mikonim va dar zamane Timshift FPS ro batavajjoh be Timeshift avaz mikonim.
-                transform.position = Vector3.MoveTowards(transform.position, Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0.0f)) + distance, Speed * Time.fixedDeltaTime / Time.timeScale);//vali inja chon nemikhaim sorate spaceship hatta vaghti slowmotion mishe avaz she, pas taghirati ke dar yek khat balatar anjam dadim baraye sorate spaceship khonsa mikonim.
-                StartCoroutine(UsePWU(5));
-            }
-            else
-            {
-                Time.timeScale = 1f;
-                Time.fixedDeltaTime = Time.timeScale * 0.02f;
-                transform.position = Vector3.MoveTowards(transform.position, Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0.0f)) + distance, Speed * Time.fixedDeltaTime);
-
-            }
+                Time.fixedDeltaTime = Time.timeScale * 0.02f;//inja sorate khondane fixedUpdate haro avaz mikonim va dar zamane Timshift FPS ro batavajjoh be Timeshift avaz mikonim.
+            }*/
+            //Time.fixedDeltaTime = Time.timeScale * 0.02f;
+            transform.position = Vector3.MoveTowards(transform.position, Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0.0f)) + distance, Speed * Time.fixedDeltaTime / Time.timeScale);//vali inja chon nemikhaim sorate spaceship hatta vaghti slowmotion mishe avaz she, pas taghirati ke dar yek khat balatar anjam dadim baraye sorate spaceship khonsa mikonim.
             tilt = transform.position.x - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0.0f)).x - distance.x;
+            powers.transform.position = new Vector3(transform.position.x, powers.transform.position.y, transform.position.z);
         }
         else
         {
-            if (UIAndScores.GameisStarted && pauseUI.activeSelf==false)
-            {
-                pauseUI.SetActive(true);
-            }
             k = true;
-            Time.timeScale = slowmotion;
-            Time.fixedDeltaTime = Time.timeScale * 0.02f;
         }
-
-        rb.position = new Vector3(
-            Mathf.Clamp(rb.position.x, boundary.xMin, boundary.xMax),
+        transform.position = new Vector3(
+            Mathf.Clamp(transform.position.x, boundary.xMin, boundary.xMax),
             8f,
-            Mathf.Clamp(rb.position.z, boundary.zMin, boundary.zMax)
+            Mathf.Clamp(transform.position.z, boundary.zMin, boundary.zMax)
         );
         float currentRotation = -90 + tilt * tiltspeed;
         currentRotation = Mathf.Clamp(currentRotation, -135f, -45f);
         transform.rotation = Quaternion.Euler(currentRotation, 270f, -90f);
-        //rb.transform.rotation = new Quaternion(rb.transform.rotation.x, rb.transform.rotation.y, -tilt, transform.rotation.w);
     }
 
     void OnTriggerEnter(Collider other)// for powers
@@ -194,13 +175,13 @@ public class PlayerController : MonoBehaviour
 
             else if (other.name == "Shield(Clone)" || other.name == "Shield2(Clone)")
             {
-                powerCounts[0]++;
-                PowerUpText[0].text = "" + powerCounts[0];
+                UIAndScores.powerCounts[0]++;
+                UIAndScores.PowerUpText[0].text = "" + UIAndScores.powerCounts[0];
             }
             else if (other.name == "TimeShift(Clone)")
             {
-                powerCounts[1]++;
-                PowerUpText[1].text = "" + powerCounts[1];
+                UIAndScores.powerCounts[1]++;
+                UIAndScores.PowerUpText[1].text = "" + UIAndScores.powerCounts[1];
             }
             Destroy(other.gameObject);
         }
@@ -220,10 +201,10 @@ public class PlayerController : MonoBehaviour
                 transform.GetChild(3).gameObject.SetActive(false);
                 gameObject.tag = "Player";
                 yield break;
-
             case 1:
                 newPower = 1;
-                yield return new WaitForSeconds(5f * Time.timeScale);
+                yield return new WaitForSecondsRealtime(5f);
+                Time.timeScale = 1;
                 newPower = 0;
                 yield break;
 
@@ -233,10 +214,10 @@ public class PlayerController : MonoBehaviour
     }
     public void UsePoweup(int i)
     {
-        if (powerCounts[i] > 0)
+        if (UIAndScores.powerCounts[i] > 0)
         {
-            powerCounts[i]--;
-            PowerUpText[i].text = "" + powerCounts[i];
+            UIAndScores.powerCounts[i]--;
+            UIAndScores.PowerUpText[i].text = "" + UIAndScores.powerCounts[i];
             StartCoroutine(UsePWU(i));
         }
         else return;
