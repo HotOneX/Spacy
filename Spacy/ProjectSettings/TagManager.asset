@@ -12,6 +12,7 @@ TagManager:
   - Laser
   - DontDestroyOnLoad
   - EnemyBolt
+  - Enemy Bolt
   layers:
   - Default
   - TransparentFX
@@ -21,7 +22,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - asd
   - 
   - 
   - 

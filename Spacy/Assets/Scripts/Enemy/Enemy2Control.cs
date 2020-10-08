@@ -17,14 +17,6 @@ public class Enemy2Control : MonoBehaviour
         objectPosition = new Vector3(transform.position.x, 8.4f, spawnController.Enemy2ForwardPosition);
         StartCoroutine(Enemy2Movement());
     }
-    /*private void FixedUpdate()
-    {
-        transform.position = Vector3.MoveTowards(transform.position, objectPosition, Time.deltaTime * Speed);
-        if (Vector3.Distance(transform.position, objectPosition) < 3 && Speed > 0.1)
-        {
-            Speed -= (0.03f);
-        }
-    }*/
 
     private IEnumerator Enemy2Movement()
     {

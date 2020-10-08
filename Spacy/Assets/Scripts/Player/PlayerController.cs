@@ -22,8 +22,8 @@ public class PlayerController : MonoBehaviour
     public Transform[] ShotSpawns;
     public Properties Bullets;
     public ParticleSystem AcidShotStart;
-    public static int newPower;
-    public int WeaponNumber, weaponLevel;
+    public static int newPower, weaponLevel;
+    public int WeaponNumber;
     private float NextFire;
     private Quaternion BoltRotation;
 
