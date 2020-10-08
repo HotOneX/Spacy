@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.28826025, g: 0.33772442, b: 0.3533325, a: 1}
+  m_IndirectSpecularColor: {r: 0.28872466, g: 0.33810413, b: 0.3537437, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5235,6 +5235,105 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 786e4598838ebcd4fb9223d8a7a2fed5, type: 3}
+--- !u!1001 &8189301152745519871
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2562538887836424049, guid: 821a1eb07a07afe4cba0029fdf7037bb,
+        type: 3}
+      propertyPath: m_Name
+      value: anticipation
+      objectReference: {fileID: 0}
+    - target: {fileID: 3415495382902521974, guid: 821a1eb07a07afe4cba0029fdf7037bb,
+        type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[0].value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3415495382902521974, guid: 821a1eb07a07afe4cba0029fdf7037bb,
+        type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[0].inSlope
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3415495382902521974, guid: 821a1eb07a07afe4cba0029fdf7037bb,
+        type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[0].outSlope
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3415495382902521974, guid: 821a1eb07a07afe4cba0029fdf7037bb,
+        type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[1].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3415495382902521974, guid: 821a1eb07a07afe4cba0029fdf7037bb,
+        type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[1].inSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3415495382902521974, guid: 821a1eb07a07afe4cba0029fdf7037bb,
+        type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[1].outSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7265927030885487931, guid: 821a1eb07a07afe4cba0029fdf7037bb,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7265927030885487931, guid: 821a1eb07a07afe4cba0029fdf7037bb,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7265927030885487931, guid: 821a1eb07a07afe4cba0029fdf7037bb,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 4.46
+      objectReference: {fileID: 0}
+    - target: {fileID: 7265927030885487931, guid: 821a1eb07a07afe4cba0029fdf7037bb,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7265927030885487931, guid: 821a1eb07a07afe4cba0029fdf7037bb,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7265927030885487931, guid: 821a1eb07a07afe4cba0029fdf7037bb,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7265927030885487931, guid: 821a1eb07a07afe4cba0029fdf7037bb,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7265927030885487931, guid: 821a1eb07a07afe4cba0029fdf7037bb,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 7265927030885487931, guid: 821a1eb07a07afe4cba0029fdf7037bb,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7265927030885487931, guid: 821a1eb07a07afe4cba0029fdf7037bb,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7265927030885487931, guid: 821a1eb07a07afe4cba0029fdf7037bb,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 821a1eb07a07afe4cba0029fdf7037bb, type: 3}
 --- !u!4 &9069691926299028975
 Transform:
   m_ObjectHideFlags: 0
