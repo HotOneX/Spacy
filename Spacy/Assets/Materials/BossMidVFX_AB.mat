@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: BossMidVFX
-  m_Shader: {fileID: -6465566751694194690, guid: 015c9e41c5002e9419c6dd6b9dad3e94,
+  m_Name: BossMidVFX_AB
+  m_Shader: {fileID: -6465566751694194690, guid: 0ceb86a5f9c325f4b924ea9b2327e613,
     type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -21,12 +21,12 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - Texture2D_ABF35C4E:
-        m_Texture: {fileID: 2800000, guid: 00b923c217abdec40a3288ebf0e0c818, type: 3}
+        m_Texture: {fileID: 2800000, guid: 2c4691713431d974c8bb50ff3ca26698, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Vector1_16387880: 0.1
-    - Vector1_57EE6261: 15
+    - Vector1_24A66E10: 0.1
+    - Vector1_52340F66: 15
     m_Colors:
-    - Color_7DEB5E8F: {r: 23.968628, g: 23.968628, b: 23.968628, a: 1}
-    - Vector2_D83176B5: {r: 0.5, g: -0.5, b: 0, a: 0}
+    - Color_7DEB5E8F: {r: 1, g: 1, b: 1, a: 1}
+    - Vector2_6CAF37ED: {r: 1, g: 0, b: 0, a: 0}
