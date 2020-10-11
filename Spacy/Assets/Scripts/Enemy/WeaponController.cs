@@ -5,8 +5,7 @@ public class WeaponController : MonoBehaviour
 {
 	public GameObject shot;
 	public Transform[] shotSpawns;
-
-	public float delay;
+    public ParticleSystem StartShoot;
 	private float fireRate;
     [Header("FireRate")]
     public float min;
@@ -17,18 +16,26 @@ public class WeaponController : MonoBehaviour
 	{
 		audioSource = GetComponent<AudioSource> ();
         fireRate = Random.Range(min, max);
-		InvokeRepeating ("Fire", fireRate, fireRate);//in here we can use loop or courotine and IEnumerator like in GameController script.S
+        //invoke is worked but we need waitforseconds for StartShoot particle System, so we use coroutine instead.
+        //InvokeRepeating ("Fire", fireRate, fireRate);
+        StartCoroutine(StartShooting());
 	}
-	void Fire()
-	{
-        if (Random.value <= 0.2)
+    private IEnumerator StartShooting()
+    {
+        while(true)
         {
-            foreach (var shotSpawn in shotSpawns)
+            yield return new WaitForSeconds(fireRate);
+            if (Random.value <= 0.2)
             {
-                Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
+                if(StartShoot)
+                    StartShoot.Play(true);
+                yield return new WaitForSeconds(2f);
+                foreach (var shotSpawn in shotSpawns)
+                {
+                    Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
+                }
+                audioSource.Play();
             }
-            audioSource.Play();
         }
-        else return;
-	}
+    }
 }
