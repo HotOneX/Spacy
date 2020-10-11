@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: BossMidVFX
-  m_Shader: {fileID: -6465566751694194690, guid: 015c9e41c5002e9419c6dd6b9dad3e94,
+  m_Name: ParticlesScroll.Add_HDR
+  m_Shader: {fileID: -6465566751694194690, guid: 8f348916428efc64fbe28b08dfd7406b,
     type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -21,12 +21,13 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - Texture2D_ABF35C4E:
-        m_Texture: {fileID: 2800000, guid: 00b923c217abdec40a3288ebf0e0c818, type: 3}
+        m_Texture: {fileID: 2800000, guid: 9632be34765d2294ab18fa42de170cdd, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Vector1_16387880: 0.1
-    - Vector1_57EE6261: 15
+    - Vector1_2416D4CB: 0.05
+    - Vector1_564609E0: 15
     m_Colors:
-    - Color_7DEB5E8F: {r: 23.968628, g: 23.968628, b: 23.968628, a: 1}
-    - Vector2_D83176B5: {r: 0.5, g: -0.5, b: 0, a: 0}
+    - Color_7DEB5E8F: {r: 2.9960785, g: 2.9960785, b: 2.9960785, a: 1}
+    - Vector2_8C409DDB: {r: -0.5, g: 0, b: 0, a: 0}
+    - Vector2_A429E8DE: {r: -1, g: 0, b: 0, a: 0}
