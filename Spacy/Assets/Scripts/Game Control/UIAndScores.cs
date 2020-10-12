@@ -19,6 +19,7 @@ public class UIAndScores : MonoBehaviour
     public static int[] powerCounts = { 0, 0, 0 };
     public TextMeshProUGUI[] PowerUpText;
 
+    public Slider BulletLevelupSlider;
     public Text scoreText;
     public GameObject gameOverText;
     public GameObject restartButton;
@@ -27,6 +28,8 @@ public class UIAndScores : MonoBehaviour
     public GameObject Player2;
 
     private int score;
+    private float SliderOldValue=0;
+    public float Timer=0f;
 
     public SpawnController spawnController;
 
@@ -42,11 +45,13 @@ public class UIAndScores : MonoBehaviour
         colormenu.SetActive(true);
         score = 0;
         AddScore(0);
+        BulletLevelupSlider.value = 0;
+        BulletLevelupSlider.maxValue = 400 + PlayerController.weaponLevel * 100;
     }
 
     private void Update()
     {
-        if(Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject())
+        if (Input.GetMouseButton(0) && !IsPointerOverGameObject())
         {
             if (pauseUI.activeSelf == true)
             {
@@ -67,7 +72,28 @@ public class UIAndScores : MonoBehaviour
             Time.timeScale = 0.1f;
         }
         Time.fixedDeltaTime = Time.timeScale * 0.02f;
+        if(BulletLevelupSlider.value==BulletLevelupSlider.maxValue && PlayerController.weaponLevel < 9)
+        {
+            PlayerController.weaponLevel++;
+            BulletLevelupSlider.maxValue = 400 + PlayerController.weaponLevel * 150;
+            BulletLevelupSlider.value = 0;
+        }
+        if (BulletLevelupSlider.value == SliderOldValue)
+        {
+            Timer += Time.deltaTime;
+            if (Timer >= 1f)
+            {
+                BulletLevelupSlider.value -= PlayerController.weaponLevel;
+                SliderOldValue = BulletLevelupSlider.value;
+            }
+        }
+        else
+        {
+            Timer = 0;
+            SliderOldValue = BulletLevelupSlider.value;
+        }
     }
+        
 
 
 
@@ -115,5 +141,20 @@ public class UIAndScores : MonoBehaviour
     {
         yield return new WaitForSeconds(3f);
         restartButton.SetActive(true);
+    }
+    public static bool IsPointerOverGameObject()
+    {
+        //check mouse
+        if (EventSystem.current.IsPointerOverGameObject())
+            return true;
+
+        //check touch
+        if (Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Began)
+        {
+            if (EventSystem.current.IsPointerOverGameObject(Input.touches[0].fingerId))
+                return true;
+        }
+
+        return false;
     }
 }

@@ -36,7 +36,7 @@ public class EnemyHealth : MonoBehaviour
 
     public void TakeDamage(int Amount)
     {
-
+        UIAndScores.BulletLevelupSlider.value += Amount;
         Health -= Amount;
         if (Health <= 0)
         {
@@ -59,6 +59,7 @@ public class EnemyHealth : MonoBehaviour
                 }
             }
             Destroy(gameObject);
+            UIAndScores.BulletLevelupSlider.value += Amount*2;
         }
         if (rend && flashMaterial)// this code is for error, when the rend or flashmaterial in unity is empty, error happends
         {

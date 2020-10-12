@@ -68,8 +68,6 @@ public class SpawnController : MonoBehaviour
             //                                                ****************************************
 
             yield return new WaitForSeconds(4f);
-            //Instantiate(Hazards[5], SpawnPosition, SpawnRotation);
-            yield return new WaitForSeconds(3f);
             for (i = 0; i < 40; i++)
             {
 
@@ -82,17 +80,6 @@ public class SpawnController : MonoBehaviour
                 {
                     hazard = Hazards[3];
                 }
-                /*else if (Random.value <= 0.2)
-                {
-                    if (pTrigger == true)
-                    {
-                        hazard = Hazards[Random.Range(5, 9)];
-                        pTrigger = false;
-                        StartCoroutine(PowerUpSpawnWait());//its for not bieng respawn several of them together
-                    }
-                    else
-                        continue;
-                }*/
                 else continue;
                 SpawnPosition = new Vector3(Random.Range(-SpawnValues.x, SpawnValues.x), SpawnValues.y, SpawnValues.z);
                 SpawnRotation = Quaternion.identity;//it work with out identity too like this: new Quaternion()
@@ -100,12 +87,13 @@ public class SpawnController : MonoBehaviour
                 {
                     Instantiate(hazard, SpawnPosition, SpawnRotation);
                 }
-                yield return new WaitForSeconds(Random.Range(0.5f,1.5f));
+                yield return new WaitForSeconds(Random.Range(0.5f, 1.5f));
             }
+            yield return new WaitUntil(() => GameObject.FindGameObjectsWithTag("Enemy").Length == 0);
 
             //                                                ****************************************
 
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(1f);
             n = 1;
             for (i = 0; i < 16; i++)
             {
