@@ -77,7 +77,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 441c9900cb082e643ab6635684017e97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 30
+  speed: 25
   Rig: {fileID: 5085010352160266221}
 --- !u!114 &3977746546392827880
 MonoBehaviour:
@@ -170,7 +170,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 441c9900cb082e643ab6635684017e97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 30
+  speed: 25
   Rig: {fileID: 1234944333465069682}
 --- !u!114 &1234944333465069681
 MonoBehaviour:
@@ -550,7 +550,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 441c9900cb082e643ab6635684017e97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 30
+  speed: 25
   Rig: {fileID: 4856251607562187726}
 --- !u!114 &8246224402518143694
 MonoBehaviour:
@@ -643,7 +643,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 441c9900cb082e643ab6635684017e97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 30
+  speed: 25
   Rig: {fileID: 3014777521729011140}
 --- !u!114 &4946706836722595807
 MonoBehaviour:
@@ -736,7 +736,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 441c9900cb082e643ab6635684017e97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 30
+  speed: 25
   Rig: {fileID: 7036632791558441703}
 --- !u!114 &672447194824998804
 MonoBehaviour:
@@ -987,7 +987,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 441c9900cb082e643ab6635684017e97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 30
+  speed: 25
   Rig: {fileID: 8351806780611490447}
 --- !u!114 &1974786019348316020
 MonoBehaviour:

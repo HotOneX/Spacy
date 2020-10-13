@@ -171,6 +171,7 @@ MonoBehaviour:
   - {fileID: 4757578129557140}
   - {fileID: 4175824380424806}
   StartShoot: {fileID: 4038245236021362688}
+  chanceToShoot: 80
   min: 3
   max: 4
 --- !u!82 &82585703629547884
@@ -295,7 +296,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f4ec26e8d8025546b642cdaf5d099c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health: 100
+  Health: 130
   Explosion: {fileID: 100012, guid: 384371afbb4354cc9a3fc68eab303756, type: 3}
   rend: {fileID: 23284808189323208}
   flashMaterial: {fileID: 2100000, guid: f5e89666b53075e4e96a9042adbde652, type: 2}

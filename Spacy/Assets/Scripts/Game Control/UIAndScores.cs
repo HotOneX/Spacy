@@ -46,7 +46,7 @@ public class UIAndScores : MonoBehaviour
         score = 0;
         AddScore(0);
         BulletLevelupSlider.value = 0;
-        BulletLevelupSlider.maxValue = 400 + PlayerController.weaponLevel * 100;
+        BulletLevelupSlider.maxValue = 500 + PlayerController.weaponLevel * 200;
     }
 
     private void Update()
@@ -75,7 +75,7 @@ public class UIAndScores : MonoBehaviour
         if(BulletLevelupSlider.value==BulletLevelupSlider.maxValue && PlayerController.weaponLevel < 9)
         {
             PlayerController.weaponLevel++;
-            BulletLevelupSlider.maxValue = 400 + PlayerController.weaponLevel * 150;
+            BulletLevelupSlider.maxValue = 500 + PlayerController.weaponLevel * 200;
             BulletLevelupSlider.value = 0;
         }
         if (BulletLevelupSlider.value == SliderOldValue)
@@ -83,7 +83,7 @@ public class UIAndScores : MonoBehaviour
             Timer += Time.deltaTime;
             if (Timer >= 1f)
             {
-                BulletLevelupSlider.value -= PlayerController.weaponLevel;
+                BulletLevelupSlider.value -= PlayerController.weaponLevel * 2;
                 SliderOldValue = BulletLevelupSlider.value;
             }
         }

@@ -7,6 +7,7 @@ public class WeaponController : MonoBehaviour
 	public Transform[] shotSpawns;
     public ParticleSystem StartShoot;
 	private float fireRate;
+    public float chanceToShoot;
     [Header("FireRate")]
     public float min;
     public float max;
@@ -25,7 +26,7 @@ public class WeaponController : MonoBehaviour
         while(true)
         {
             yield return new WaitForSeconds(fireRate);
-            if (Random.value <= 0.2)
+            if (Random.value <= chanceToShoot/100)
             {
                 if(StartShoot)
                     StartShoot.Play(true);

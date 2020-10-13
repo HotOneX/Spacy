@@ -237,7 +237,8 @@ AudioSource:
   m_GameObject: {fileID: 5110082977897232153}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 221ea11eb1528f2438dd1415773e99b4,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: bf75b984df8a84987bcf3a8bf6e2862d, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.3
@@ -452,21 +453,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92eda0162f190dd4389e111c7dfbc889, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pauseUI: {fileID: 0}
   WeponAudio:
   - {fileID: 5110082977897232157}
   - {fileID: 2680947666781968976}
-  powerCounts: 000000000000000000000000
-  PowerUpText: []
-  slowmotion: 0.1
   TimeShift: 0.2
+  UIAndScores: {fileID: 0}
+  powers: {fileID: 0}
   FireRate:
+  - 0.25
   - 0.3
-  - 0.35
   ShotSpawns:
   - {fileID: 8143587706070267547}
   - {fileID: 5369713618236310384}
-  - {fileID: 8143587706070267547}
   Bullets:
     MainBullet:
     - {fileID: 6146364955893595618, guid: 2b90bfadddcda0248a5811132ad8d5a5, type: 3}
@@ -491,9 +489,7 @@ MonoBehaviour:
     - {fileID: 8518329237368349465, guid: 8c00c47e3cae67640be968b627621e5e, type: 3}
     - {fileID: 5991555923227318812, guid: 7f63c216fd639d84cb02cb7dc8d382c4, type: 3}
   AcidShotStart: {fileID: 8264043540776046704}
-  newPower: 0
   WeaponNumber: 1
-  weaponLevel: 1
   rb: {fileID: 5110082977897232130}
   boundary:
     xMin: -5.5
@@ -5401,6 +5397,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Line
+      objectReference: {fileID: 0}
+    - target: {fileID: 3873286053140139226, guid: 39ab6a1895216c6488d9a5471505fdae,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3873286053140139227, guid: 39ab6a1895216c6488d9a5471505fdae,
         type: 3}

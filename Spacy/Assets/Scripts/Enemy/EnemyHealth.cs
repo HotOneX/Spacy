@@ -52,7 +52,7 @@ public class EnemyHealth : MonoBehaviour
                     Instantiate(powerup, transform.position, Quaternion.identity);
                     SpawnController.startPowerUpSpawnWaitFunc();
                 }
-                else if (Random.value <= 0.2)
+                else if (Random.value <= 0.15)
                 {
                     Instantiate(newWeapon, transform.position, Quaternion.identity);
                     SpawnController.startPowerUpSpawnWaitFunc();

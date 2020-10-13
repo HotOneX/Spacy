@@ -156,7 +156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 441c9900cb082e643ab6635684017e97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 30
+  speed: 25
   Rig: {fileID: 7073575072454525388}
 --- !u!114 &7073575072454525387
 MonoBehaviour:
@@ -249,7 +249,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 441c9900cb082e643ab6635684017e97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 30
+  speed: 25
   Rig: {fileID: 7073575073162132448}
 --- !u!114 &7073575073162132463
 MonoBehaviour:
@@ -342,7 +342,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 441c9900cb082e643ab6635684017e97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 30
+  speed: 25
   Rig: {fileID: 7073575073200405285}
 --- !u!114 &7073575073200405280
 MonoBehaviour:
@@ -435,7 +435,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 441c9900cb082e643ab6635684017e97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 30
+  speed: 25
   Rig: {fileID: 7073575073219928453}
 --- !u!114 &7073575073219928448
 MonoBehaviour:
@@ -923,7 +923,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 441c9900cb082e643ab6635684017e97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 30
+  speed: 25
   Rig: {fileID: 7073575073849215900}
 --- !u!114 &7073575073849215899
 MonoBehaviour:
@@ -1016,7 +1016,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 441c9900cb082e643ab6635684017e97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 30
+  speed: 25
   Rig: {fileID: 7073575073860403062}
 --- !u!114 &7073575073860403061
 MonoBehaviour:
@@ -1188,7 +1188,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 441c9900cb082e643ab6635684017e97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 30
+  speed: 25
   Rig: {fileID: 7073575074063927881}
 --- !u!114 &7073575074063927892
 MonoBehaviour:
@@ -1333,7 +1333,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 441c9900cb082e643ab6635684017e97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 30
+  speed: 25
   Rig: {fileID: 7073575074319885216}
 --- !u!114 &7073575074319885231
 MonoBehaviour:

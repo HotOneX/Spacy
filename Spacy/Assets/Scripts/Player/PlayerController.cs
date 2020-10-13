@@ -45,11 +45,12 @@ public class PlayerController : MonoBehaviour
         {
             BoltRotation = Bolt.transform.rotation;
         }
+        weaponLevel = 1;
     }
 
     void Start()
     {
-        newPower = 0; weaponLevel = 1; WeaponNumber = 0;
+        newPower = 0; WeaponNumber = 0;
         k = true;
     }
     void Update()//rahi nist motevaghefesh konim hatta baraye chand sania, Update() hamishar har frame yek bar ejra mishavad

@@ -116,7 +116,8 @@ MonoBehaviour:
   shot: {fileID: 122238, guid: a7bbf944aca229f42935430f2964b0af, type: 3}
   shotSpawns:
   - {fileID: 432558}
-  delay: 0.75
+  StartShoot: {fileID: 0}
+  chanceToShoot: 20
   min: 2.75
   max: 5
 --- !u!114 &11488300
