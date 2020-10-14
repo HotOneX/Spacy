@@ -10,6 +10,10 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene("Level 1");
     }
 
+    public void GoToGarage()
+    {
+        SceneManager.LoadScene("Garage");
+    }
     public void QuitGame()
     {
         Application.Quit();
