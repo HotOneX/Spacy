@@ -16,14 +16,16 @@ public class PlayerController : MonoBehaviour
     public float TimeShift;
     public UIAndScores UIAndScores;
     public GameObject powers;
+    
 
     [Header("Shot Settings")]
     public float[] FireRate;
     public Transform[] ShotSpawns;
     public Properties Bullets;
     public ParticleSystem AcidShotStart;
-    public static int newPower, weaponLevel;
     public int WeaponNumber;
+    public Animator Anim;
+    public static int newPower, weaponLevel;
     private float NextFire;
     private Quaternion BoltRotation;
 
@@ -52,11 +54,13 @@ public class PlayerController : MonoBehaviour
     {
         newPower = 0; WeaponNumber = 0;
         k = true;
+        
     }
     void Update()//rahi nist motevaghefesh konim hatta baraye chand sania, Update() hamishar har frame yek bar ejra mishavad
     {
         if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject())
         {
+            Anim.SetFloat("fireRate",1/FireRate[WeaponNumber]);
             if (WeaponNumber == 5)
             {
                 transform.GetChild(6).gameObject.SetActive(true);
@@ -67,7 +71,7 @@ public class PlayerController : MonoBehaviour
                 NextFire = Time.realtimeSinceStartup + FireRate[WeaponNumber];
                 Instantiate(Bullets.MainBullet[weaponLevel], ShotSpawns[WeaponNumber].GetChild(0).position, ShotSpawns[WeaponNumber].GetChild(0).rotation);
                 WeponAudio[WeaponNumber].Play();
-                transform.GetChild(4).gameObject.SetActive(false);
+                //transform.GetChild(4).gameObject.SetActive(false);
             }
 
             else if (WeaponNumber == 1 && Time.realtimeSinceStartup > NextFire)
@@ -76,7 +80,7 @@ public class PlayerController : MonoBehaviour
                 Instantiate(Bullets.AcidBullet[weaponLevel], ShotSpawns[WeaponNumber].GetChild(0).position, ShotSpawns[WeaponNumber].GetChild(0).rotation);//this function makes a copy of an object in a smilar way to the Duplicate command in the editor.
                 AcidShotStart.Play();
                 WeponAudio[WeaponNumber].Play();
-                transform.GetChild(4).gameObject.SetActive(false);
+                //transform.GetChild(4).gameObject.SetActive(false);
             }
         }
     }
@@ -148,9 +152,9 @@ public class PlayerController : MonoBehaviour
             8f,
             Mathf.Clamp(transform.position.z, boundary.zMin, boundary.zMax)
         );
-        float currentRotation = -90 + tilt * tiltspeed;
-        currentRotation = Mathf.Clamp(currentRotation, -135f, -45f);
-        transform.rotation = Quaternion.Euler(currentRotation, 270f, -90f);
+        float currentRotation = tilt * tiltspeed;
+        currentRotation = Mathf.Clamp(currentRotation, -45f, 45f);
+        transform.rotation = Quaternion.Euler(0f, 0f, currentRotation);
     }
 
     void OnTriggerEnter(Collider other)// for powers

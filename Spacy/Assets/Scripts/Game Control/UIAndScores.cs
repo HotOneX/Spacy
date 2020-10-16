@@ -12,7 +12,7 @@ public class UIAndScores : MonoBehaviour
     public Material[] materials1;
     public Material[] materials2;
     public Material[] materials3;
-    private Renderer rend;
+    public Renderer rend;
     public GameObject colormenu;
 
     public GameObject pauseUI;
@@ -36,7 +36,7 @@ public class UIAndScores : MonoBehaviour
     private void Awake()
     {
         Application.targetFrameRate = 60;
-        rend = Player1.GetComponent<Renderer>();
+        //rend = Player1.GetComponent<Renderer>();
     }
     void Start()
     {

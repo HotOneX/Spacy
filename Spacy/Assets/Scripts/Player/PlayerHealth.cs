@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class PlayerHealth : MonoBehaviour
 {
     private bool damaged;
-    private Animator Anim;
+    public Animator Anim;
     public int life;
     public Image[] LifeImages;
     private int i = 0;
@@ -22,7 +22,7 @@ public class PlayerHealth : MonoBehaviour
         damaged = false;
         PlayerController = GetComponent<PlayerController>();
         UIAndScores = GameControllerObject.GetComponent<UIAndScores>();
-        Anim = GetComponent<Animator>();
+        //Anim = GetComponent<Animator>();
     }
 
     private void OnTriggerEnter(Collider other)
