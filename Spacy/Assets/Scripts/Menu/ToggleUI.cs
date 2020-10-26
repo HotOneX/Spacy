@@ -18,13 +18,13 @@ public class ToggleUI : MonoBehaviour
     private Color backgroundColorOff = new Color(254f / 255f, 101f / 255f, 70f / 255f, 1f);
     private Image backgroundColor;
 
-    private float checkMarkSize;
+    //private float checkMarkSize;
     private bool switching;
 
     private void Awake()
     {
         checkMarkTransform = checkMark.GetComponent<RectTransform>();
-        checkMarkSize = checkMarkTransform.sizeDelta.x;
+        //checkMarkSize = checkMarkTransform.sizeDelta.x;
         backgroundColor = background.GetComponent<Image>();      
     }
 
@@ -51,17 +51,17 @@ public class ToggleUI : MonoBehaviour
     {
         if (tStatus)
         {
-            checkMarkTransform.localPosition = SmoothlyMove(checkMark,-27,27);
+            checkMarkTransform.localPosition = SmoothlyMove(-27,27);
             backgroundColor.color = backgroundColorOff;
         }
         else
         {
-            checkMarkTransform.localPosition = SmoothlyMove(checkMark, 27, -27);
+            checkMarkTransform.localPosition = SmoothlyMove(27, -27);
             backgroundColor.color = backgroundColorON;
         }
     }
 
-    private Vector3 SmoothlyMove(GameObject checkMark, float startPos, float endPos)
+    private Vector3 SmoothlyMove(float startPos, float endPos)
     {
         Vector3 position = new Vector3(Mathf.Lerp(startPos, endPos, t += moveSpeed * Time.deltaTime),0,0);
         StopSwitching();
