@@ -269,7 +269,7 @@ MonoBehaviour:
   UIAndScores: {fileID: 0}
   powers: {fileID: 0}
   FireRate:
-  - 0.25
+  - 0.3
   - 0.3
   ShotSpawns:
   - {fileID: 4335142306737056052}
@@ -299,14 +299,16 @@ MonoBehaviour:
     - {fileID: 5991555923227318812, guid: 7f63c216fd639d84cb02cb7dc8d382c4, type: 3}
   AcidShotStart: {fileID: 4577230597080698847}
   WeaponNumber: 1
-  rb: {fileID: 0}
+  Anim: {fileID: 846949743904925873}
   boundary:
     xMin: -5.5
     xMax: 5.5
     zMin: -6
     zMax: 12
   Speed: 14
-  tiltspeed: 13
+  tiltspeed: 2
+  SpeedMeasure: 0
+  mousepos: {x: 0, y: 0, z: 0}
 --- !u!114 &730677921529022779
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -320,7 +322,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Anim: {fileID: 846949743904925873}
-  life: 3
+  life: 20
   LifeImages:
   - {fileID: 0}
   - {fileID: 0}

@@ -30,14 +30,16 @@ public class PlayerController : MonoBehaviour
     private Quaternion BoltRotation;
 
     [Header("Movement and Physics Settings")]
-    public Rigidbody rb;
+    private Rigidbody rb;
     public Boundary boundary;
     public float Speed;
     public float tiltspeed;
 
     private Vector3 distance;
+    private Vector3 PreviousFramePosition;
+    public float SpeedMeasure;
     private Vector3 playerpos;
-    private Vector3 mousepos;
+    public Vector3 mousepos;
     private bool k;
     private float tilt;
 
@@ -54,13 +56,14 @@ public class PlayerController : MonoBehaviour
     {
         newPower = 0; WeaponNumber = 0;
         k = true;
-        
+        rb = GetComponent<Rigidbody>();
     }
     void Update()//rahi nist motevaghefesh konim hatta baraye chand sania, Update() hamishar har frame yek bar ejra mishavad
     {
         if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject())
         {
-            Anim.SetFloat("fireRate",1/FireRate[WeaponNumber]);
+            
+            Anim.SetFloat("fireRate",1/FireRate[WeaponNumber] + 2);
             if (WeaponNumber == 5)
             {
                 transform.GetChild(6).gameObject.SetActive(true);
@@ -71,6 +74,7 @@ public class PlayerController : MonoBehaviour
                 NextFire = Time.realtimeSinceStartup + FireRate[WeaponNumber];
                 Instantiate(Bullets.MainBullet[weaponLevel], ShotSpawns[WeaponNumber].GetChild(0).position, ShotSpawns[WeaponNumber].GetChild(0).rotation);
                 WeponAudio[WeaponNumber].Play();
+                Anim.Play("shooting",1);
                 //transform.GetChild(4).gameObject.SetActive(false);
             }
 
@@ -80,6 +84,7 @@ public class PlayerController : MonoBehaviour
                 Instantiate(Bullets.AcidBullet[weaponLevel], ShotSpawns[WeaponNumber].GetChild(0).position, ShotSpawns[WeaponNumber].GetChild(0).rotation);//this function makes a copy of an object in a smilar way to the Duplicate command in the editor.
                 AcidShotStart.Play();
                 WeponAudio[WeaponNumber].Play();
+                Anim.Play("shooting", 1);
                 //transform.GetChild(4).gameObject.SetActive(false);
             }
         }
@@ -125,7 +130,6 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject())//the event system is for stop using getmouseButton when pressing a UI button or text
         {
-            
             if (k)
             {
                 mousepos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0.0f));
@@ -133,18 +137,18 @@ public class PlayerController : MonoBehaviour
                 k = false;
                 distance = new Vector3(playerpos.x - mousepos.x, playerpos.y - mousepos.y, playerpos.z - mousepos.z);
             }
-            /*if (newPower == 1)
-            {
-                Time.timeScale = TimeShift;
-                Time.fixedDeltaTime = Time.timeScale * 0.02f;//inja sorate khondane fixedUpdate haro avaz mikonim va dar zamane Timshift FPS ro batavajjoh be Timeshift avaz mikonim.
-            }*/
-            //Time.fixedDeltaTime = Time.timeScale * 0.02f;
             transform.position = Vector3.MoveTowards(transform.position, Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0.0f)) + distance, Speed * Time.fixedDeltaTime / Time.timeScale);//vali inja chon nemikhaim sorate spaceship hatta vaghti slowmotion mishe avaz she, pas taghirati ke dar yek khat balatar anjam dadim baraye sorate spaceship khonsa mikonim.
-            tilt = transform.position.x - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0.0f)).x - distance.x;
+            //Vector3 movment = new Vector3(,transform.position.y,)
+            //rb.velocity=Vector3.MoveTowards(transform.position, Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0.0f)) + distance, Speed * Time.fixedDeltaTime / Time.timeScale);
+            //tilt = transform.position.x - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0.0f)).x - distance.x;
             powers.transform.position = new Vector3(transform.position.x, powers.transform.position.y, transform.position.z);
+            //float distanceforSpeed = Vector3.Distance(PreviousFramePosition, transform.position);
+            SpeedMeasure = (PreviousFramePosition.x - transform.position.x)/Time.deltaTime;
+            
         }
         else
         {
+            Anim.SetBool("jolajol", false);
             k = true;
         }
         transform.position = new Vector3(
@@ -152,9 +156,12 @@ public class PlayerController : MonoBehaviour
             8f,
             Mathf.Clamp(transform.position.z, boundary.zMin, boundary.zMax)
         );
-        float currentRotation = tilt * tiltspeed;
+        float currentRotation = SpeedMeasure*10;
         currentRotation = Mathf.Clamp(currentRotation, -45f, 45f);
-        transform.rotation = Quaternion.Euler(0f, 0f, currentRotation);
+        //transform.rotation = Quaternion.Euler(0f, 0f, currentRotation);
+        PreviousFramePosition = transform.position;
+        Quaternion euler = Quaternion.Euler(transform.rotation.x,transform.rotation.y,currentRotation);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation,euler,tiltspeed);
     }
 
     void OnTriggerEnter(Collider other)// for powers
@@ -200,10 +207,10 @@ public class PlayerController : MonoBehaviour
         switch (p)
         {
             case 0:
-                transform.GetChild(3).gameObject.SetActive(true);
+                transform.GetChild(2).gameObject.SetActive(true);
                 gameObject.tag = "Shield";
                 yield return new WaitForSeconds(10f);
-                transform.GetChild(3).gameObject.SetActive(false);
+                transform.GetChild(2).gameObject.SetActive(false);
                 gameObject.tag = "Player";
                 yield break;
             case 1:

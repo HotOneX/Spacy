@@ -5012,12 +5012,6 @@ MeshRenderer:
     type: 3}
   m_PrefabInstance: {fileID: 730677921906925885}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &135983186528438668 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 846949743904925873, guid: 97c9d9d00c34ee44e8852a078c3ebea4,
-    type: 3}
-  m_PrefabInstance: {fileID: 730677921906925885}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &730677921906925885
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5095,11 +5089,6 @@ PrefabInstance:
       propertyPath: powers
       value: 
       objectReference: {fileID: 495093560}
-    - target: {fileID: 730677921529022778, guid: 97c9d9d00c34ee44e8852a078c3ebea4,
-        type: 3}
-      propertyPath: Anim
-      value: 
-      objectReference: {fileID: 135983186528438668}
     - target: {fileID: 730677921529022779, guid: 97c9d9d00c34ee44e8852a078c3ebea4,
         type: 3}
       propertyPath: LifeImages.Array.data[0]
@@ -5120,16 +5109,6 @@ PrefabInstance:
       propertyPath: UIAndScores
       value: 
       objectReference: {fileID: 1882893224}
-    - target: {fileID: 730677921529022779, guid: 97c9d9d00c34ee44e8852a078c3ebea4,
-        type: 3}
-      propertyPath: life
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 846949743904437398, guid: 97c9d9d00c34ee44e8852a078c3ebea4,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 97c9d9d00c34ee44e8852a078c3ebea4, type: 3}
 --- !u!1001 &2261140913366085651
