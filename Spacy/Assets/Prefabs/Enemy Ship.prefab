@@ -117,7 +117,7 @@ MonoBehaviour:
   shotSpawns:
   - {fileID: 432558}
   StartShoot: {fileID: 0}
-  chanceToShoot: 100
+  chanceToShoot: 50
   min: 2.75
   max: 5
 --- !u!114 &11488300
