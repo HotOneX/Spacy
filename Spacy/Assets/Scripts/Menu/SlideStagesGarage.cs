@@ -18,13 +18,17 @@ public class SlideStagesGarage : MonoBehaviour
     private Vector3 cameraT;
     private bool next,prev = false;
     public int currentStage = 1;
+    private float initialX;
     private float destination;
-
+    private bool getBack = false;
+    private float rotateT;
+    private float backT;
 
     private void Awake()
     {
         cameraT =this.transform.localPosition;
-        destination = cameraT.x;
+        initialX = cameraT.x;
+        destination = initialX;
 }
 
     private void Start()
@@ -45,16 +49,19 @@ public class SlideStagesGarage : MonoBehaviour
                 break;
         }
 
-        if (next) NextMove();
-        else if (prev) PrevMove();
-
-        /*if (mainCamera.activeSelf)
-        {
-            SetSlideButtons(false, true);
-            this.transform.localPosition = cameraT;        
-            StartCoroutine(nameof(WaitForMenu));
-        }*/
+        if (next || prev) NextMove();
+        //else if (prev) PrevMove();
+        //else if (getBack) GetBack();
+        //if ( backT == 1) getBack = false;
+        Debug.Log(getBack);
     }
+
+   /* private void GetBack()
+    {
+        Tuple<Vector3, float> smooth = SmoothlyMove(this.transform.localPosition.x, initialX, backT);
+        this.transform.localPosition = smooth.Item1;
+        backT = smooth.Item2;
+    }*/
 
     private void SetSlideButtons(bool _prev, bool _next)
     {
@@ -62,23 +69,22 @@ public class SlideStagesGarage : MonoBehaviour
         nextButton.SetActive(_next);
     }
 
-    IEnumerator WaitForMenu()
+   /* IEnumerator WaitForMenu()
     {
         yield return new WaitForSeconds(1);
         garage.SetActive(false);
-    }
+    }*/
 
     private void NextMove()
     {
         this.transform.localPosition = SmoothlyMove(this.transform.localPosition.x, destination);
-        
     }
 
-    private void PrevMove()
+    /*private void PrevMove()
     {
-        this.transform.localPosition = SmoothlyMove(this.transform.localPosition.x, destination);
+        this.transform.localPosition = SmoothlyMove(this.transform.localPosition.x, destination, rotateT).Item1;
         
-    }
+    }*/
 
     public void PrevClick()
     {
@@ -86,12 +92,13 @@ public class SlideStagesGarage : MonoBehaviour
         currentStage--;
         destination -= stagesDistance;
         t = 0;
-        Debug.Log(this.transform.localPosition.x);
+        //Debug.Log(Vector3.up+"   "+Vector3.forward);
 
     }
 
     public void NextClick()
     {
+        garage.GetComponent<Animator>().enabled = false;
         next = true;
         currentStage++;
         destination += stagesDistance;
@@ -123,7 +130,21 @@ public class SlideStagesGarage : MonoBehaviour
         {
             next = false;
             prev = false;
+            getBack = false;
             t = 0;
         }
+    }
+
+   /* public void BackToFirstStage()
+    {
+        getBack = true;
+        currentStage = 1;
+        destination = initialX;
+        //this.transform.localPosition = SmoothlyMove(this.transform.localPosition.x, cameraT.x);
+    }*/
+   public void resetStage()
+    {
+        destination = initialX;
+        //currentStage = 1;
     }
 }

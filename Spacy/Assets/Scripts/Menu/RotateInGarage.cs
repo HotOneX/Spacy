@@ -37,13 +37,13 @@ public class RotateInGarage : MonoBehaviour
     void Update()
     {
         
-        //DetectHit();
+        DetectHit();
         /*if (!hittedPlayer)
         {
             SlideStagesGarage SlideStagesGarage = Camera.GetComponent<SlideStagesGarage>();
             curStage = SlideStagesGarage.currentStage;
         }*/
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && !hittedPlayer)
         {
             backCamera = false;
             RotateCamera();
@@ -55,7 +55,7 @@ public class RotateInGarage : MonoBehaviour
             backCamera = true;
         }
 
-        //if (Input.GetMouseButtonUp(0)) hittedPlayer = false;
+        if (Input.GetMouseButtonUp(0)) hittedPlayer = false;
         if(backCamera) Camera.transform.rotation = Quaternion.Euler(SmoothlyMove(x, cameraR.eulerAngles.x, y, cameraR.eulerAngles.y));
     }
 
@@ -111,7 +111,7 @@ public class RotateInGarage : MonoBehaviour
         prevPos = Input.mousePosition;
     }*/
 
-    /*private void DetectHit()
+    private void DetectHit()
     {
         if (canHit)
         {
@@ -131,7 +131,7 @@ public class RotateInGarage : MonoBehaviour
                 }
             }
         }
-    }*/
+    }
     private float CheckRotateBoundary(float cameraAngle, float RotateBoundary, float finalXY)
     {
         if (cameraAngle - RotateBoundary <0)
