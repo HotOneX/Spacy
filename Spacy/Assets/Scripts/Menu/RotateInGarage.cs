@@ -8,15 +8,15 @@ public class RotateInGarage : MonoBehaviour
 
     public List<GameObject> spaceshipsToRotate = new List<GameObject>();
     public Camera Camera;
-    public float sRotateSpeed = 10f;
     public float cRotateSpeed = 1.5f;
     public float cBackToPositonSpeed = 1f;
     public float sAutomaticRotateSpeed = 1f;
+    public float angleAutoRotate = 10f;
+    public float sRotateSpeed = 10f;
+    public float tSpaceship = 0;
 
     private bool backCamera = false;
     private float tCamera = 0;
-    public float tSpaceship = 0;
-    private Vector3 prevPos = Vector3.zero;
     private bool hittedPlayer = false;
     private GameObject spaceship;
     private Quaternion cameraR;
@@ -24,6 +24,7 @@ public class RotateInGarage : MonoBehaviour
     private int curStage;  
     private float x;
     private float y;
+    private Vector3 prevPos = Vector3.zero;
     private float maxRotateS = 0.707f;
     private float minRotateS= -0.707f;
 
@@ -31,31 +32,19 @@ public class RotateInGarage : MonoBehaviour
     private void Awake()
     {
         cameraR = Camera.transform.rotation;
-        
-
     }
 
     void Update()
     {
         
-        DetectHit();
-        if (!hittedPlayer)
+        //DetectHit();
+        /*if (!hittedPlayer)
         {
             SlideStagesGarage SlideStagesGarage = Camera.GetComponent<SlideStagesGarage>();
             curStage = SlideStagesGarage.currentStage;
-            
-            AutoRotate();
-        }
-        if (hittedPlayer)
+        }*/
+        if (Input.GetMouseButton(0))
         {
-            //Debug.LogFormat("Y_Hitted: {0}, maxR: {1}, minR: {2}", -spaceshipsToRotate[0].transform.localRotation.y, maxRotateS, minRotateS);
-            //t2 = 0;
-            tSpaceship = (-spaceshipsToRotate[0].transform.localRotation.y + maxRotateS) / (-minRotateS + maxRotateS);
-            //StartRotateSpaceship();
-        }
-        else if (Input.GetMouseButton(0))
-        {
-            canHit = false;
             backCamera = false;
             RotateCamera();
             prevPos = Input.mousePosition;
@@ -63,16 +52,10 @@ public class RotateInGarage : MonoBehaviour
         }
         else if (Input.GetMouseButtonUp(0))
         {
-            //t2 = (-spaceshipsToRotate[0].transform.localRotation.y + maxRotateS) / (minRotateS + maxRotateS);
             backCamera = true;
         }
-        else
-        {
 
-            canHit = true;
-        }
-
-        if (Input.GetMouseButtonUp(0)) hittedPlayer = false;
+        //if (Input.GetMouseButtonUp(0)) hittedPlayer = false;
         if(backCamera) Camera.transform.rotation = Quaternion.Euler(SmoothlyMove(x, cameraR.eulerAngles.x, y, cameraR.eulerAngles.y));
     }
 
@@ -108,7 +91,7 @@ public class RotateInGarage : MonoBehaviour
         Camera.transform.rotation = Quaternion.Euler(x, y, 0);
     }
 
-    private void StartRotateSpaceship()
+    /*private void StartRotateSpaceship()
     {
         if (sRotateSpeed < 1) sRotateSpeed = 1f;
         if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject())
@@ -116,7 +99,7 @@ public class RotateInGarage : MonoBehaviour
             Vector3 deltaPos = (Input.mousePosition - prevPos) / sRotateSpeed;
             if (Vector3.Dot(spaceship.transform.up, Vector3.up) >= 0)
             {
-                spaceship.transform.Rotate(spaceship.transform.up, -Vector3.Dot(deltaPos, Camera.main.transform.right), Space.World);
+                spaceship.transform.Rotate(spaceship.transform.up, -Vector3.Dot(deltaPos, Camera.main.transform.right), Space.Self);
             }
             else
             {
@@ -126,9 +109,9 @@ public class RotateInGarage : MonoBehaviour
             //hit.transform.gameObject.transform.Rotate(Camera.main.transform.right, Vector3.Dot(deltaPos, Camera.main.transform.up), Space.World);
         }
         prevPos = Input.mousePosition;
-    }
+    }*/
 
-    private void DetectHit()
+    /*private void DetectHit()
     {
         if (canHit)
         {
@@ -148,7 +131,7 @@ public class RotateInGarage : MonoBehaviour
                 }
             }
         }
-    }
+    }*/
     private float CheckRotateBoundary(float cameraAngle, float RotateBoundary, float finalXY)
     {
         if (cameraAngle - RotateBoundary <0)
@@ -170,13 +153,14 @@ public class RotateInGarage : MonoBehaviour
         Camera.transform.rotation = cameraR;
     }
 
-    private void AutoRotate()
-    {
-        Vector3 rSapceship = new Vector3(spaceshipsToRotate[curStage - 1].transform.rotation.x, Mathf.Lerp(spaceshipsToRotate[curStage - 1].transform.rotation.y, spaceshipsToRotate[curStage - 1].transform.rotation.y+360f, tSpaceship += 0.1f * Time.deltaTime), 0);
+    /*private void AutoRotate()
+    { 
+        float _y = Mathf.Lerp(spaceshipsToRotate[curStage - 1].transform.rotation.y + (3 * angleAutoRotate), spaceshipsToRotate[curStage - 1].transform.rotation.y + 360f + (3 * angleAutoRotate), tSpaceship += 0.1f * Time.deltaTime);
+        Vector3 rSapceship = new Vector3(angleAutoRotate, _y, 0f);
         spaceshipsToRotate[curStage-1].transform.rotation = Quaternion.Euler(rSapceship);
         tSpaceship = StopSwitching(tSpaceship);
         if (spaceshipsToRotate[curStage - 1].transform.localRotation.y > maxRotateS) maxRotateS = spaceshipsToRotate[curStage - 1].transform.localRotation.y;
         else if (minRotateS > spaceshipsToRotate[curStage - 1].transform.localRotation.y) minRotateS = spaceshipsToRotate[curStage - 1].transform.localRotation.y;
         //Debug.LogFormat("y: {0}", spaceshipsToRotate[curStage - 1].transform.localRotation.y);
-    }
+    }*/
 }

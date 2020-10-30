@@ -70,13 +70,14 @@ public class SlideStagesGarage : MonoBehaviour
 
     private void NextMove()
     {
-        this.transform.localPosition = SmoothlyMove(transform.position.x, destination);
+        this.transform.localPosition = SmoothlyMove(this.transform.localPosition.x, destination);
+        
     }
 
     private void PrevMove()
     {
         this.transform.localPosition = SmoothlyMove(this.transform.localPosition.x, destination);
-
+        
     }
 
     public void PrevClick()
@@ -85,7 +86,8 @@ public class SlideStagesGarage : MonoBehaviour
         currentStage--;
         destination -= stagesDistance;
         t = 0;
-        
+        Debug.Log(this.transform.localPosition.x);
+
     }
 
     public void NextClick()
@@ -94,6 +96,7 @@ public class SlideStagesGarage : MonoBehaviour
         currentStage++;
         destination += stagesDistance;
         t = 0;
+        Debug.Log(this.transform.localPosition.x);
     }
     
    /* public void MenuClick()
