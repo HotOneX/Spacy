@@ -18,15 +18,11 @@ public class RotateInGarage : MonoBehaviour
     private bool backCamera = false;
     private float tCamera = 0;
     private bool hittedPlayer = false;
-    private GameObject spaceship;
     private Quaternion cameraR;
-    private bool canHit = true;
-    private int curStage;  
+    //private int curStage;  
     private float x;
     private float y;
     private Vector3 prevPos = Vector3.zero;
-    private float maxRotateS = 0.707f;
-    private float minRotateS= -0.707f;
 
 
     private void Awake()
@@ -36,14 +32,15 @@ public class RotateInGarage : MonoBehaviour
 
     void Update()
     {
-        
-        DetectHit();
+        Debug.Log(Camera.isActiveAndEnabled);
+        if(Camera.isActiveAndEnabled)  
+            DetectHit();
         /*if (!hittedPlayer)
         {
             SlideStagesGarage SlideStagesGarage = Camera.GetComponent<SlideStagesGarage>();
             curStage = SlideStagesGarage.currentStage;
         }*/
-        if (Input.GetMouseButton(0) && !hittedPlayer)
+        else if (Input.GetMouseButton(0) && !hittedPlayer)
         {
             backCamera = false;
             RotateCamera();
@@ -113,8 +110,6 @@ public class RotateInGarage : MonoBehaviour
 
     private void DetectHit()
     {
-        if (canHit)
-        {
             if (Input.GetMouseButton(0))
             {
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -125,12 +120,11 @@ public class RotateInGarage : MonoBehaviour
                         if (hit.transform.gameObject.CompareTag("Player"))
                         {
                             hittedPlayer = true;
-                            spaceship = hit.transform.gameObject;
+                            //spaceship = hit.transform.gameObject;
                         }
                     }
                 }
             }
-        }
     }
     private float CheckRotateBoundary(float cameraAngle, float RotateBoundary, float finalXY)
     {
