@@ -32,7 +32,7 @@ public class RotateInGarage : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(Camera.isActiveAndEnabled);
+        //Debug.Log(Camera.isActiveAndEnabled);
         if(Camera.isActiveAndEnabled)  
             DetectHit();
         /*if (!hittedPlayer)
