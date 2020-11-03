@@ -4736,7 +4736,7 @@ GameObject:
   - component: {fileID: 8273882459062876618}
   - component: {fileID: 7682139285363218445}
   m_Layer: 0
-  m_Name: Player 2_Garage 1
+  m_Name: Player 2_Garage
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4998,7 +4998,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0af0261a36b0b924b89eb8e715b77831, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sRotateSpeed: 10
-  angleAutoRotate: -100
+  sRotateSpeed: 0.3
+  angleAutoRotate: -110
   tSpaceship: 0
-  angle: 5
+  dragSpeed: 5

@@ -40,7 +40,7 @@ public class RotateInGarage : MonoBehaviour
             SlideStagesGarage SlideStagesGarage = Camera.GetComponent<SlideStagesGarage>();
             curStage = SlideStagesGarage.currentStage;
         }*/
-        else if (Input.GetMouseButton(0) && !hittedPlayer)
+        if (Input.GetMouseButton(0) && !hittedPlayer)
         {
             backCamera = false;
             RotateCamera();

@@ -24,26 +24,53 @@ public class MusicVolume : MonoBehaviour
 
     private void Start()
     {
-        Slider.value = PlayerPrefs.GetFloat("bgSound", 0.75f);
+        Slider.value = PlayerPrefs.GetFloat("bgSound", 0);
+        mixer.SetFloat("bgSound", Mathf.Log10(Slider.value) * 20);
+        toggle.GetComponent<ToggleUI>().isOn = IntToBool(PlayerPrefs.GetInt("SFX", 0));
+        sfxMixer.SetFloat("SFX", BoolToInt(toggle.GetComponent<ToggleUI>().isOn));
     }
-    public void changeVolume(float sliderValue)
+
+    private float BoolToInt(bool isOn)
+    {
+        if (isOn)
+            return 0f;
+        else
+            return -80f;
+    }
+
+    private bool IntToBool(int v)
+    {
+        if (v != 0)
+            return true;
+        else
+            return false;
+    }
+
+    public void ChangeVolume(float sliderValue)
     {
         mixer.SetFloat("bgSound", Mathf.Log10(sliderValue) * 20);
         PlayerPrefs.SetFloat("bgSound", sliderValue);
+
+        Debug.Log("slider value: " + PlayerPrefs.GetFloat("bgSound", 0));
     }
 
     public void SfxVolume()
     {
+        int saveSfx;
         toggleOn = toggle.GetComponent<ToggleUI>().isOn;
         if (toggleOn)
         {
             muteSfx = -80;
+            saveSfx = 0;
         }
         else
         {
             muteSfx = 0;
+            saveSfx = 1;
         }
 
         sfxMixer.SetFloat("SFX", muteSfx);
+        PlayerPrefs.SetInt("SFX", saveSfx);
+        Debug.Log("sfx: "+muteSfx);
     }
 }
