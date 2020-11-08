@@ -8,7 +8,7 @@ public class RotateSpaceship : MonoBehaviour
     public float sRotateSpeed = 10f;
     public float angleAutoRotate = 12f;
     public float tSpaceship = 0;
-    public float angle;
+    public float dragSpeed = 5;
 
     private bool drag = false;
     private bool autoRotating = true;
@@ -29,7 +29,7 @@ public class RotateSpaceship : MonoBehaviour
         if (drag)
         {
             float x = Input.GetAxis("Mouse X");
-            transform.RotateAround(transform.position, new Vector3(0, 1f, 0) * Time.deltaTime * x * -1, angle);
+            transform.RotateAround(transform.position, new Vector3(0, 1f, 0) * Time.deltaTime * x * -1, dragSpeed);
         }
         else if (autoRotating)
         {
@@ -70,7 +70,7 @@ public class RotateSpaceship : MonoBehaviour
     }
     private void AutoRotate()
     {
-        float _y = Mathf.Lerp(transform.rotation.y + (3 * angleAutoRotate), transform.rotation.y + 360f + (3 * angleAutoRotate), tSpaceship += 0.1f * Time.deltaTime);
+        float _y = Mathf.Lerp(transform.rotation.y + (3 * angleAutoRotate), transform.rotation.y + 360f + (3 * angleAutoRotate), tSpaceship += sRotateSpeed * Time.deltaTime);
         Vector3 rSapceship = new Vector3(angleAutoRotate, _y, 0f);
         transform.rotation = Quaternion.Euler(rSapceship);
         tSpaceship = StopSwitching(tSpaceship);

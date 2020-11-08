@@ -53,7 +53,7 @@ public class SlideStagesGarage : MonoBehaviour
         //else if (prev) PrevMove();
         //else if (getBack) GetBack();
         //if ( backT == 1) getBack = false;
-        Debug.Log(getBack);
+        //Debug.Log(getBack);
     }
 
    /* private void GetBack()
@@ -103,7 +103,7 @@ public class SlideStagesGarage : MonoBehaviour
         currentStage++;
         destination += stagesDistance;
         t = 0;
-        Debug.Log(this.transform.localPosition.x);
+        //Debug.Log(this.transform.localPosition.x);
     }
     
    /* public void MenuClick()

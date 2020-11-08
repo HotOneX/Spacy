@@ -32,7 +32,7 @@ public class RotateInGarage : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(Camera.isActiveAndEnabled);
+        //Debug.Log(Camera.isActiveAndEnabled);
         if(Camera.isActiveAndEnabled)  
             DetectHit();
         /*if (!hittedPlayer)
@@ -40,7 +40,7 @@ public class RotateInGarage : MonoBehaviour
             SlideStagesGarage SlideStagesGarage = Camera.GetComponent<SlideStagesGarage>();
             curStage = SlideStagesGarage.currentStage;
         }*/
-        else if (Input.GetMouseButton(0) && !hittedPlayer)
+        if (Input.GetMouseButton(0) && !hittedPlayer)
         {
             backCamera = false;
             RotateCamera();
