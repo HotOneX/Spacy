@@ -223,6 +223,47 @@ MonoBehaviour:
   scrollSpeed: -0.5
   tileSizeZ: 30
   m_direction: 1
+--- !u!1 &144001236 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6005750505762674768, guid: a7d10133dcc966c46a0adc0ab870e4bf,
+    type: 3}
+  m_PrefabInstance: {fileID: 1611838444}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &144001237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 144001236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa5ebd191a4ba544cba2e538e3f9b688, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Health: 2000
+  Explosion: {fileID: 0}
+  rend: {fileID: 0}
+  flashMaterial: {fileID: 0}
+  ScoreValue: 0
+--- !u!114 &144001238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 144001236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c161d9f03b8208048b02a4da879187dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Bullets:
+  - {fileID: 394195482309197799, guid: 712c265d82153c5469d9356f25bc45d9, type: 3}
+  - {fileID: 1194747894130917048, guid: e2d0f229da68d2748b98640655b59b5e, type: 3}
+  - {fileID: 1177813647158581674, guid: 9dca91ec5b160f147a0c8b3b93e0b7a5, type: 3}
+  movpos: {x: 0, y: 0, z: 0}
+  Speed: 3
 --- !u!1 &150444709
 GameObject:
   m_ObjectHideFlags: 0
@@ -1797,7 +1838,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 9930946b7c5f48e44aef1e56c2de7315, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 16
+      value: 21.48
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 9930946b7c5f48e44aef1e56c2de7315, type: 3}
       propertyPath: m_LocalRotation.x
@@ -2130,7 +2171,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb22ed77722ad8544bf2395780461e0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lastcheckpoint: 0
 --- !u!1 &833949530
 GameObject:
   m_ObjectHideFlags: 0
@@ -3596,10 +3636,39 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 144001237, guid: a7d10133dcc966c46a0adc0ab870e4bf, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1269858505822197614, guid: a7d10133dcc966c46a0adc0ab870e4bf,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1269858505822197614, guid: a7d10133dcc966c46a0adc0ab870e4bf,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1269858505822197614, guid: a7d10133dcc966c46a0adc0ab870e4bf,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1269858505822197614, guid: a7d10133dcc966c46a0adc0ab870e4bf,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1269858505822197614, guid: a7d10133dcc966c46a0adc0ab870e4bf,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5921480287908272720, guid: a7d10133dcc966c46a0adc0ab870e4bf,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.13
       objectReference: {fileID: 0}
     - target: {fileID: 5921480287908272720, guid: a7d10133dcc966c46a0adc0ab870e4bf,
         type: 3}
@@ -3609,27 +3678,27 @@ PrefabInstance:
     - target: {fileID: 5921480287908272720, guid: a7d10133dcc966c46a0adc0ab870e4bf,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 14.5
+      value: 13.51
       objectReference: {fileID: 0}
     - target: {fileID: 5921480287908272720, guid: a7d10133dcc966c46a0adc0ab870e4bf,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5921480287908272720, guid: a7d10133dcc966c46a0adc0ab870e4bf,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0.0010439353
       objectReference: {fileID: 0}
     - target: {fileID: 5921480287908272720, guid: a7d10133dcc966c46a0adc0ab870e4bf,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5921480287908272720, guid: a7d10133dcc966c46a0adc0ab870e4bf,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.99999946
       objectReference: {fileID: 0}
     - target: {fileID: 5921480287908272720, guid: a7d10133dcc966c46a0adc0ab870e4bf,
         type: 3}
@@ -3644,7 +3713,7 @@ PrefabInstance:
     - target: {fileID: 5921480287908272720, guid: a7d10133dcc966c46a0adc0ab870e4bf,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: -0.120000005
       objectReference: {fileID: 0}
     - target: {fileID: 5921480287908272720, guid: a7d10133dcc966c46a0adc0ab870e4bf,
         type: 3}
@@ -3654,7 +3723,7 @@ PrefabInstance:
     - target: {fileID: 6005750505762674768, guid: a7d10133dcc966c46a0adc0ab870e4bf,
         type: 3}
       propertyPath: m_Name
-      value: Boss
+      value: Boss 1
       objectReference: {fileID: 0}
     - target: {fileID: 6005750505762674768, guid: a7d10133dcc966c46a0adc0ab870e4bf,
         type: 3}
@@ -4501,6 +4570,8 @@ MonoBehaviour:
   Enemy2ForwardPosition: 0
   sign: 0
   booltemp: 0
+  Bosses:
+  - {fileID: 144001236}
   Hazards:
   - {fileID: 189984, guid: 2defb976f8b31414a8a7901d25ec7637, type: 3}
   - {fileID: 105954, guid: 857378edfd84e3045ad07bd86c3c6e51, type: 3}
@@ -4526,8 +4597,7 @@ MonoBehaviour:
   SpawnValues: {x: 5.5, y: 8, z: 22}
   StartWait: 2
   RoundText: {fileID: 1012095062}
-  checkPoint: {fileID: 0}
-  NextlevelText: {fileID: 400516187}
+  NextlevelText: {fileID: 400516189}
 --- !u!4 &1882893222
 Transform:
   m_ObjectHideFlags: 0

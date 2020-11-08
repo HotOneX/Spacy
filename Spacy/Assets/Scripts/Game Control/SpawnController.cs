@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using TMPro;
 
 
 public class SpawnController : MonoBehaviour
@@ -21,6 +22,7 @@ public class SpawnController : MonoBehaviour
     //[HideInInspector] public bool checkLife;
     [HideInInspector] public bool booltemp;//motaghayere komaki besorate boolian
 
+    public GameObject[] Bosses;
     public GameObject[] Hazards;
     public GameObject[] Powerups;
     public GameObject[] obliqueSpawnPos;//spawn position haye movarrab
@@ -35,13 +37,11 @@ public class SpawnController : MonoBehaviour
     public Text RoundText;
     private int Round = 1;
     private GameObject hazard;
-    public DontDestroyOnLoad checkPoint;
-    public GameObject NextlevelText;
+    public TextMeshProUGUI NextlevelText;
 
     private void Awake()
     {
         Application.targetFrameRate = 60;
-        checkPoint = GameObject.FindGameObjectWithTag("DontDestroyOnLoad").GetComponent<DontDestroyOnLoad>();
     }
     void Start()
     {
@@ -51,7 +51,7 @@ public class SpawnController : MonoBehaviour
     IEnumerator SpawnWaves()
     {
         //level 1
-        if (checkPoint.lastcheckpoint == 0)
+        if (DontdestroyOnLoad.lastcheckpoint == 0)
         {
             
             yield return new WaitForSeconds(StartWait);
@@ -165,17 +165,17 @@ public class SpawnController : MonoBehaviour
             Round++;
 
             yield return new WaitForSeconds(4f);
-            checkPoint.lastcheckpoint = 1;
+            DontdestroyOnLoad.lastcheckpoint = 1;
         }
 
         //###################################################################### LEVEL 2 ##########################################################
 
         //level 2
-        if (checkPoint.lastcheckpoint == 1)
+        if (DontdestroyOnLoad.lastcheckpoint == 1)
         {
-            NextlevelText.SetActive(true);
+            NextlevelText.gameObject.SetActive(true);
             yield return new WaitForSeconds(3f);
-            NextlevelText.SetActive(false);
+            NextlevelText.gameObject.SetActive(false);
             Enemy2ForwardPosition = 16;
             Instantiate(Hazards[4], new Vector3(3, 8, 21), Quaternion.identity);
             Instantiate(Hazards[4], new Vector3(-3, 8, 21), Quaternion.identity);
@@ -280,8 +280,25 @@ public class SpawnController : MonoBehaviour
             yield return new WaitForSeconds(2f);
             Enemy2ForwardPosition = 16;
             Instantiate(Hazards[4], new Vector3(0f, 8.2f, 21f), Quaternion.identity);
-            yield return new WaitForSeconds(4f);
+            yield return new WaitUntil(() => GameObject.FindGameObjectsWithTag("Enemy").Length == 0);
+
             Round++;
+            DontdestroyOnLoad.lastcheckpoint = 2;
+        }
+
+        //###################################################################### LEVEL 2 ##########################################################
+
+        //level 3
+        if (DontdestroyOnLoad.lastcheckpoint == 2)
+        {
+            NextlevelText.text = "Level 3";
+            NextlevelText.gameObject.SetActive(true);
+            yield return new WaitForSeconds(3f);
+            NextlevelText.gameObject.SetActive(false);
+            yield return new WaitForSeconds(1f);
+            Bosses[0].SetActive(true);
+            yield return new WaitUntil(() => GameObject.FindGameObjectsWithTag("Enemy").Length == 0);
+            NextlevelText.text = "congratulation :), Chapter 1 is Completed";
         }
     }
     //#####################################################
