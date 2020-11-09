@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DontDestroyOnLoad : MonoBehaviour
+public class DontdestroyOnLoad : MonoBehaviour
 {
     static GameObject instance=null;
-    public int lastcheckpoint;
+    public static int lastcheckpoint;
     private void Awake()
     {
+        lastcheckpoint = 2;
         if (instance != null)
         {
             Destroy(gameObject);
