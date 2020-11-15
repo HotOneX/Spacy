@@ -14,12 +14,13 @@ public class LineAnimation : MonoBehaviour
     public GameObject targetPanel;
     public GameObject startPoint;
     public float lineDrawSpeed = 6f;
-    public float initialSpeed = 3f;
+    //public float initialSpeed = 3f;
     public Vector3 offsetPanel;
     private Vector3 curPosition;
     private Vector3 t = Vector3.zero;
     private int back = 0;
-
+    private bool onWay = true;
+    private bool onBack = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -36,42 +37,123 @@ public class LineAnimation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (positionIndex < positions.Length - 1 && back == 0)
+        /*if (Input.GetMouseButtonDown(0))
         {
-            print("creating line");
-            curPosition = SmoothlyMove(positions[positionIndex], positions[positionIndex + 1]);
-            lineRenderer.SetPosition(lineRenderer.positionCount - 1, curPosition);
-        }
-        else back = 1;
-        if (Input.GetMouseButton(0) && back == 1)
-        {
-            print("getting back");
-            lineRenderer.SetPosition(0, startPoint.transform.position);
-            lineRenderer.SetPosition(1, new Vector3(lineRenderer.GetPosition(1).x, startPoint.transform.position.y, startPoint.transform.position.z));
-            GetBack();
-            
-        }
-        else if(Input.GetMouseButtonUp(0))
+            positionIndex++;
+           // back = 1;
+        }*/
+        /*if (Input.GetMouseButtonUp(0))
         {
             back = 0;
-            positionIndex = 0;
-
+            positionIndex--;
         }
-        else if(Input.GetMouseButton(0) && back == -1)
+        else
         {
-            lineRenderer.SetPosition(1, startPoint.transform.position);
+            if (!Input.GetMouseButton(0) && back == 0)
+            {
+                if (positionIndex < positions.Length - 1)
+                {
+                    print("creating line");
+                    curPosition = SmoothlyMove(positions[positionIndex], positions[positionIndex + 1]);
+                    lineRenderer.SetPosition(lineRenderer.positionCount - 1, curPosition);
+                }
+            }
+            else if (Input.GetMouseButton(0))
+            {
+                back = 1;
+                if(CanBack())
+                {
+                    print("getting back");
+                    //print("PoIndex: " + positionIndex);
+                    positions[0] = startPoint.transform.position;
+                    lineRenderer.SetPosition(0, startPoint.transform.position);
+                    lineRenderer.SetPosition(1, new Vector3(lineRenderer.GetPosition(1).x, startPoint.transform.position.y, startPoint.transform.position.z));
+                    GetBack();
+                }
+                else
+                {
+                    print(startPoint.transform.position);
+                    positions[0] = startPoint.transform.position;
+                    positions[1] = new Vector3(targetPanel.transform.position.x - offsetPanel.x, startPoint.transform.position.y, startPoint.transform.position.z);
+                    lineRenderer.SetPosition(0, startPoint.transform.position);
+                    lineRenderer.SetPosition(1, startPoint.transform.position);
+                }
+
+            }
+
+        }*/
+
+        if(Input.GetMouseButtonUp(0))
+        {
+            back = 0;
+            onWay = true;
         }
-
-        //print("PoIndex: "+positionIndex);
-        //print("back: "+back);
-    }
-
-    private void GetBack()
-    {
+        else if(Input.GetMouseButtonDown(0))
+        {
+            back = 1;
+            onBack = true;
+        }
         
-        //if (Input.GetMouseButtonDown(0)) positionIndex = 0;
-        curPosition = SmoothlyMove(positions[positionIndex], positions[positionIndex - 1]);
-        lineRenderer.SetPosition(lineRenderer.positionCount - 1, curPosition);
+        if(back == 0)
+        {
+            if (lineRenderer.positionCount <= positions.Length)
+            {
+                //print("Pos index" + positionIndex);
+                //print("creating line");
+                //print("onback " +onBack);
+                //print("maxPosCount " + (lineRenderer.positionCount == positions.Length));
+                positions[0] = startPoint.transform.position;
+                lineRenderer.SetPosition(0, startPoint.transform.position);
+                positions[1] = new Vector3(targetPanel.transform.position.x - offsetPanel.x, startPoint.transform.position.y, startPoint.transform.position.z);
+                if (onBack)
+                {
+                    //print("reset t");
+                    t = Vector3.one - t;
+                    onBack = false;
+                    positionIndex--;
+                }
+                curPosition = SmoothlyMove(positions[positionIndex], positions[positionIndex + 1]);
+                if (lineRenderer.GetPosition(positionIndex + 1) == Vector3.zero && lineRenderer.positionCount < 3)
+                    lineRenderer.positionCount++;               
+
+                lineRenderer.SetPosition(positionIndex +1, curPosition);
+            }
+            else
+            {
+                onWay = false;
+            }
+        }
+        else
+        {
+            if(lineRenderer.positionCount > 1)
+            {
+                //print("getting back");
+                //print("Pos index" + positionIndex);
+                //print("PoIndex: " + positionIndex);
+                positions[0] = startPoint.transform.position;
+                positions[1] = positions[1] = new Vector3(targetPanel.transform.position.x - offsetPanel.x, startPoint.transform.position.y, startPoint.transform.position.z);
+                lineRenderer.SetPosition(0, startPoint.transform.position);
+                if (onWay)
+                {
+                    //print("reset t");
+                    if(t != Vector3.zero)
+                        t = Vector3.one - t;
+                    onWay = false;
+                    if(positionIndex<positions.Length-1)
+                        positionIndex++;
+                }
+                //lineRenderer.SetPosition(1, new Vector3(lineRenderer.GetPosition(1).x, startPoint.transform.position.y, startPoint.transform.position.z));
+                curPosition = SmoothlyMove(positions[positionIndex], positions[positionIndex - 1]);
+                lineRenderer.SetPosition(positionIndex, curPosition);
+                //GetBack();
+            }
+            else
+            {
+                onBack = false;
+            }
+
+        }
+        print("t: " + t);
     }
 
     private Vector3 SmoothlyMove(Vector3 startPos, Vector3 endPos)
@@ -85,22 +167,14 @@ public class LineAnimation : MonoBehaviour
 
     private void StopSwitching()
     {
-        if (t.x > 1 || t.y>1 || t.z>1)
+        if (t.x > 1 || t.y > 1 || t.z > 1)
         {
             t = Vector3.zero;
             if (positionIndex < positions.Length - 1 && back == 0)
             {
-                if (positionIndex < positions.Length - 2)
-                {
-                    //print("count++");
-                    lineRenderer.positionCount++;
-
-                }
-
                 positionIndex++;
-                //print("pIndex++");
             }
-            else if (positionIndex > 1)
+            else if (/*positionIndex > 1 && */lineRenderer.positionCount > 1 && back == 1)
             {
                 lineRenderer.positionCount--;
                 positionIndex--;
@@ -109,9 +183,25 @@ public class LineAnimation : MonoBehaviour
             {
                 positionIndex = 0;
                 back = -1;
-            } 
+            }
         }
 
     }
+    private void GetBack()
+    {
+        
+        //if (Input.GetMouseButtonDown(0)) positionIndex = 0;
+        curPosition = SmoothlyMove(positions[positionIndex], positions[positionIndex - 1]);
+        lineRenderer.SetPosition(positionIndex, curPosition);
+    }
 
+    private bool CanBack()
+    {
+        if (positionIndex == 0)
+        {
+            //print("line is equal");
+            return false;
+        }
+        else return true;
+    }
 }

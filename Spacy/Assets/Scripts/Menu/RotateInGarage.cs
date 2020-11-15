@@ -47,7 +47,7 @@ public class RotateInGarage : MonoBehaviour
             prevPos = Input.mousePosition;
             tCamera = 0;
         }
-        else if (Input.GetMouseButtonUp(0))
+        else if (Input.GetMouseButtonUp(0) && !hittedPlayer)
         {
             backCamera = true;
         }
