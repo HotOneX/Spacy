@@ -144,3 +144,4 @@ MonoBehaviour:
   startPoint: {fileID: 0}
   lineDrawSpeed: 3
   offsetPanel: {x: -0.924752, y: 0.420367, z: 0}
+  garageView: {fileID: 0}

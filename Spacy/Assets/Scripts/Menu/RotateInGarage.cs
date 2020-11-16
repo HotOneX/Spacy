@@ -17,13 +17,12 @@ public class RotateInGarage : MonoBehaviour
 
     private bool backCamera = false;
     private float tCamera = 0;
-    private bool hittedPlayer = false;
+    public bool hittedPlayer;
     private Quaternion cameraR;
     //private int curStage;  
     private float x;
     private float y;
     private Vector3 prevPos = Vector3.zero;
-
 
     private void Awake()
     {
@@ -54,6 +53,7 @@ public class RotateInGarage : MonoBehaviour
 
         if (Input.GetMouseButtonUp(0)) hittedPlayer = false;
         if(backCamera) Camera.transform.rotation = Quaternion.Euler(SmoothlyMove(x, cameraR.eulerAngles.x, y, cameraR.eulerAngles.y));
+        print("hiited player: "+hittedPlayer);
     }
 
     private Vector3 SmoothlyMove(float startPosx, float endPosx, float startPosy, float endPosy)

@@ -1035,7 +1035,7 @@ RectTransform:
   m_Children:
   - {fileID: 343502282}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1617,6 +1617,11 @@ PrefabInstance:
       propertyPath: targetPanel
       value: 
       objectReference: {fileID: 343502281}
+    - target: {fileID: 9107571843563025385, guid: 68307701a0084c340b872996934dfb86,
+        type: 3}
+      propertyPath: garageView
+      value: 
+      objectReference: {fileID: 946113402}
     - target: {fileID: 9107571843563025386, guid: 68307701a0084c340b872996934dfb86,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1655,7 +1660,7 @@ PrefabInstance:
     - target: {fileID: 9107571843563025386, guid: 68307701a0084c340b872996934dfb86,
         type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 9107571843563025386, guid: 68307701a0084c340b872996934dfb86,
         type: 3}
