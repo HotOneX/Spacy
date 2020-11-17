@@ -23,6 +23,19 @@ public class PlayerBoltDamage : MonoBehaviour
             }
             Destroy(gameObject);
         }
+        else if(other.CompareTag("Boss"))
+        {
+            BossHealth BossHealth = other.GetComponent<BossHealth>();
+            if (BossHealth)
+            {
+                BossHealth.TakeDamage(damage);
+            }
+            if (Explosion != null)// its say if Explosion field in unity inspector in scripts IS not empty, so go on and if not, so skip this if.
+            {
+                Instantiate(Explosion, transform.position, transform.rotation);
+            }
+            Destroy(gameObject);
+        }
         else return;
     }
 }

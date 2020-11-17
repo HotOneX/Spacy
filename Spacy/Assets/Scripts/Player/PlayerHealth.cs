@@ -30,7 +30,10 @@ public class PlayerHealth : MonoBehaviour
         if (CompareTag("Player"))
         {
             if (other.CompareTag("Laser"))
+            {
+                PlayerTakeDamage();
                 return;
+            }
             if (other.CompareTag("EnemyBolt"))
             {
                 Destroy(other.gameObject);
@@ -55,7 +58,7 @@ public class PlayerHealth : MonoBehaviour
     }
 
 
-    void PlayerTakeDamage()
+    public void PlayerTakeDamage()
     {
         if (damaged == false)
         {

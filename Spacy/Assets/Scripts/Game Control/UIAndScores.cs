@@ -75,7 +75,7 @@ public class UIAndScores : MonoBehaviour
         if(BulletLevelupSlider.value==BulletLevelupSlider.maxValue && PlayerController.weaponLevel < 14)
         {
             PlayerController.weaponLevel++;
-            BulletLevelupSlider.maxValue = 500 + PlayerController.weaponLevel * 200;
+            BulletLevelupSlider.maxValue = 600 + PlayerController.weaponLevel * 400;
             BulletLevelupSlider.value = 0;
         }
         if (BulletLevelupSlider.value == SliderOldValue)

@@ -12,6 +12,7 @@ TagManager:
   - Laser
   - DontDestroyOnLoad
   - EnemyBolt
+  - Boss
   layers:
   - Default
   - TransparentFX
