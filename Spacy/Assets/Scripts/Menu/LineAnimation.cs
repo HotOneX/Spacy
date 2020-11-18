@@ -25,15 +25,24 @@ public class LineAnimation : MonoBehaviour
 
     void Start()
     {
+
+        //t = Vector3.zero;
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.SetPosition(0, startPoint.transform.position);
+        if (lineRenderer.positionCount > 1)
+            lineRenderer.positionCount --;
         //lineRenderer.SetWidth(0.45f, 0.45f);
         positions[0] = startPoint.transform.position;
-        positions[1] = new Vector3(targetPanel.transform.position.x-offsetPanel.x,startPoint.transform.position.y, startPoint.transform.position.z);
-        positions[2] = targetPanel.transform.position - offsetPanel;
+        positions[1] = new Vector3(targetPanel.transform.position.x - offsetPanel.x, startPoint.transform.position.y, startPoint.transform.position.z);
+        TargertPanelReposition();
         // Debug.Log(positions[0] + "  " + positions[1] + "  " + positions[2]);
         rotateInGarage = garageView.GetComponent<RotateInGarage>();
         Debug.Log(rotateInGarage.hittedPlayer);
+    }
+
+    public void TargertPanelReposition()
+    {
+        positions[2] = targetPanel.transform.position - offsetPanel;
     }
 
     void Update()

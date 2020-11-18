@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 using System.Collections.Generic;
-
+using System;
 
 public class RotateInGarage : MonoBehaviour
 {
@@ -23,6 +23,9 @@ public class RotateInGarage : MonoBehaviour
     private float x;
     private float y;
     private Vector3 prevPos = Vector3.zero;
+    private GameObject[] lines;
+    private LineAnimation LineAnimation;
+    private LineRenderer LineRenderer;
 
     private void Awake()
     {
@@ -31,14 +34,25 @@ public class RotateInGarage : MonoBehaviour
 
     void Update()
     {
-        //Debug.Log(Camera.isActiveAndEnabled);
-        if(Camera.isActiveAndEnabled)  
+        if(Camera.isActiveAndEnabled)
+        {
             DetectHit();
+            
+        }
+
+        lines = GameObject.FindGameObjectsWithTag("Line");
+        if (this.transform.position.x <= 5.37f)
+        {
+            TurnLinesOn();
+        }
+        else TurnLinesOff();
+
         /*if (!hittedPlayer)
         {
             SlideStagesGarage SlideStagesGarage = Camera.GetComponent<SlideStagesGarage>();
             curStage = SlideStagesGarage.currentStage;
         }*/
+
         if (Input.GetMouseButton(0) && !hittedPlayer)
         {
             backCamera = false;
@@ -54,6 +68,30 @@ public class RotateInGarage : MonoBehaviour
         if (Input.GetMouseButtonUp(0)) hittedPlayer = false;
         if(backCamera) Camera.transform.rotation = Quaternion.Euler(SmoothlyMove(x, cameraR.eulerAngles.x, y, cameraR.eulerAngles.y));
         print("hiited player: "+hittedPlayer);
+    }
+
+    private void TurnLinesOff()
+    {
+        print("turning OFF");
+        foreach (GameObject go in lines)
+        {
+            LineRenderer = go.GetComponent<LineRenderer>();
+            LineRenderer.enabled = false;
+            LineAnimation = go.GetComponent<LineAnimation>();
+            LineAnimation.enabled = false;
+        }
+    }
+
+    private void TurnLinesOn()
+    {
+        print("turning ON");
+        foreach (GameObject go in lines)
+        {
+            LineRenderer = go.GetComponent<LineRenderer>();
+            LineRenderer.enabled = true;
+            LineAnimation = go.GetComponent<LineAnimation>();
+            LineAnimation.enabled = true;
+        }
     }
 
     private Vector3 SmoothlyMove(float startPosx, float endPosx, float startPosy, float endPosy)
