@@ -148,7 +148,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            Anim.SetBool("jolajol", false);
+            //Anim.SetBool("jolajol", false);
             k = true;
         }
         transform.position = new Vector3(

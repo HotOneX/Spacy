@@ -6,57 +6,84 @@ public class Laser : MonoBehaviour
 {
     private LineRenderer lr;
     private BoxCollider col;
-    private Transform HitEffect;
-    private Transform HitCore;
+    public Transform HitEffect;
+    public Transform HitCore;
     private Transform Parent;
+    private bool Checked;
+    private float eDistance;
+    private float zAxis;
 
     public int Damage;
 
     void Start()
     {
+        Checked = false;
         lr = GetComponent<LineRenderer>();
         col = GetComponent<BoxCollider>();
-        HitCore= transform.GetChild(3);
-        HitEffect= transform.GetChild(4);
         Parent = GetComponentInParent<Transform>();
     }
-
-    void FixedUpdate()
+    private void OnEnable()
     {
-
+        StartCoroutine(StartShoot());
+    }
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+        lr.SetPosition(1, new Vector3(0, 0, 0));
+    }
+    IEnumerator StartShoot()
+    {
+        yield return new WaitForSeconds(4f);
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.forward, out hit, 30f))
+        for (float i = 0; i <= 30; i++)
         {
-             Debug.DrawRay(transform.position, hit.point, Color.red);
-            
-            if (Parent.CompareTag("Player"))
+            lr.SetPosition(1, new Vector3(0, 0, i));
+            HitCore.localPosition = new Vector3(HitCore.localPosition.x, HitCore.localPosition.y, lr.GetPosition(1).z);
+            HitEffect.localPosition = new Vector3(HitEffect.localPosition.x, HitEffect.localPosition.y, lr.GetPosition(1).z);
+            yield return new WaitForFixedUpdate();
+            if (Physics.Raycast(transform.position, transform.forward, out hit, 30f))
             {
-                lr.SetPosition(1, new Vector3(0, 0, hit.point.z - Parent.position.z));
-                HitCore.position = new Vector3(HitCore.position.x, HitCore.position.y, lr.GetPosition(1).z + Parent.position.z);
-                HitEffect.position = new Vector3(HitEffect.position.x, HitEffect.position.y, lr.GetPosition(1).z + Parent.position.z);
-                EnemyHealth EnemyHealth = hit.collider.GetComponent<EnemyHealth>();
-                if (EnemyHealth)
-                    EnemyHealth.TakeDamage(Damage);
+                if (i>=(-(hit.point.z - Parent.position.z)))
+                   break;
             }
-            else if (hit.collider.CompareTag("Player"))
-            {
-                lr.SetPosition(1, new Vector3(0, 0, -(hit.point.z - Parent.position.z)));
-                HitCore.localPosition = new Vector3(HitCore.localPosition.x, HitCore.localPosition.y, (lr.GetPosition(1).z));
-                HitEffect.localPosition = new Vector3(HitEffect.localPosition.x, HitEffect.localPosition.y, (lr.GetPosition(1).z));
-                PlayerHealth PlayerHealth = hit.collider.GetComponent<PlayerHealth>();
-                //if (PlayerHealth)
-                  //  PlayerHealth.PlayerTakeDamage();
-            }
-            //Debug.Log(hit.point);
         }
-        else
+        Checked = true;
+        while (true)
         {
-            lr.SetPosition(1, new Vector3(0, 0, 30f));
-            HitCore.position = new Vector3(HitCore.position.x, HitCore.position.y, lr.GetPosition(1).z );
-            HitEffect.position = new Vector3(HitEffect.position.x, HitEffect.position.y, lr.GetPosition(1).z);
-        }
+            if (Physics.Raycast(transform.position, transform.forward, out hit, 30f))
+            {
+                Debug.DrawRay(transform.position, hit.point, Color.red);
+                zAxis = hit.point.z - Parent.position.z;//injori lazer ro mabdae mokhtasat darnazar migirim na safharo va bar asase makane lazer, makane Player ro behemon mide.
+                if (Parent.CompareTag("Player"))
+                {
+                    lr.SetPosition(1, new Vector3(0, 0, zAxis));
+                    HitCore.position = new Vector3(HitCore.position.x, HitCore.position.y, lr.GetPosition(1).z + Parent.position.z);
+                    HitEffect.position = new Vector3(HitEffect.position.x, HitEffect.position.y, lr.GetPosition(1).z + Parent.position.z);
+                    EnemyHealth EnemyHealth = hit.collider.GetComponent<EnemyHealth>();
+                    if (EnemyHealth)
+                        EnemyHealth.TakeDamage(Damage);
+                }
+                else if (hit.collider.CompareTag("Player"))
+                {
+                    eDistance = Mathf.Sqrt((zAxis * zAxis) + (hit.point.x * hit.point.x));
+                    lr.SetPosition(1, new Vector3(0, 0, (eDistance )));
+                    HitCore.localPosition = new Vector3(HitCore.localPosition.x, HitCore.localPosition.y, (lr.GetPosition(1).z));
+                    HitEffect.localPosition = new Vector3(HitEffect.localPosition.x, HitEffect.localPosition.y, (lr.GetPosition(1).z));
+                    PlayerHealth PlayerHealth = hit.collider.GetComponent<PlayerHealth>();
+                    //if (PlayerHealth)
+                    //  PlayerHealth.PlayerTakeDamage();
+                }
+                //Debug.Log(hit.point);
+            }
+            else
+            {
+                lr.SetPosition(1, new Vector3(0, 0, 30f));
+                HitCore.localPosition = new Vector3(HitCore.localPosition.x, HitCore.localPosition.y, lr.GetPosition(1).z);
+                HitEffect.localPosition = new Vector3(HitEffect.localPosition.x, HitEffect.localPosition.y, lr.GetPosition(1).z);
+            }
 
-        col.center = lr.GetPosition(1);
-        
+            col.center = lr.GetPosition(1);
+            yield return null;
+        }
     }
 }

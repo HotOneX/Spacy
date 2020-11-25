@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BossHealth : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class BossHealth : MonoBehaviour
     private Material origmat;
     public Material flashMaterial;
     public int ScoreValue;
+    public Slider healthSlider;
 
     private UIAndScores UIAndScores;
 
@@ -24,6 +26,9 @@ public class BossHealth : MonoBehaviour
     {
         if (rend)
         { origmat = rend.material; }
+        healthSlider.gameObject.SetActive(true);
+        healthSlider.maxValue = Health;
+        healthSlider.value = Health;
         //Debug.Log(rend.material.GetColor("_Color"));
     }
 
@@ -31,6 +36,7 @@ public class BossHealth : MonoBehaviour
     {
         UIAndScores.BulletLevelupSlider.value += Amount;
         Health -= Amount;
+        healthSlider.value = Health;
         if (Health <= 0)
         {
             if (Explosion != null)// its say if Explosion field in unity inspector in scripts IS not empty, so go on and if not, so skip this if.
