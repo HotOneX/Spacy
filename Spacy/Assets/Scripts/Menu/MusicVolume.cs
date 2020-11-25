@@ -51,7 +51,7 @@ public class MusicVolume : MonoBehaviour
         mixer.SetFloat("bgSound", Mathf.Log10(sliderValue) * 20);
         PlayerPrefs.SetFloat("bgSound", sliderValue);
 
-        Debug.Log("slider value: " + PlayerPrefs.GetFloat("bgSound", 0));
+        //Debug.Log("slider value: " + PlayerPrefs.GetFloat("bgSound", 0));
     }
 
     public void SfxVolume()

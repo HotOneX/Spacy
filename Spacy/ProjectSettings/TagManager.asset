@@ -13,6 +13,7 @@ TagManager:
   - DontDestroyOnLoad
   - EnemyBolt
   - Boss
+  - Line
   layers:
   - Default
   - TransparentFX
