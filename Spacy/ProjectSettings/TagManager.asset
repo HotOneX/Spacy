@@ -14,6 +14,8 @@ TagManager:
   - EnemyBolt
   - Boss
   - Line
+  - BossShield
+  - Enemy Bolt
   layers:
   - Default
   - TransparentFX
@@ -23,8 +25,8 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
+  - Player
+  - Enemy
   - 
   - 
   - 

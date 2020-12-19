@@ -21,17 +21,16 @@ public class EnemyHealth : MonoBehaviour
         GameObject GameControllerObject = GameObject.FindWithTag("GameController");
         UIAndScores = GameControllerObject.GetComponent<UIAndScores>();
         SpawnController = GameControllerObject.GetComponent<SpawnController>();
-
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        if (rend)
+    powerup = SpawnController.Powerups[Random.Range(0, 3)];
+    newWeapon = SpawnController.Powerups[Random.Range(3, 5)];
+    if (rend)
         { origmat = rend.material; }
         //Debug.Log(rend.material.GetColor("_Color"));
-        powerup = SpawnController.Powerups[Random.Range(0, 3)];
-        newWeapon = SpawnController.Powerups[Random.Range(3, 5)];
     }
 
     public void TakeDamage(int Amount)
@@ -44,7 +43,7 @@ public class EnemyHealth : MonoBehaviour
             {
                 Instantiate(Explosion, transform.position, transform.rotation);
             }
-            UIAndScores.AddScore(ScoreValue);
+            
             if (SpawnController.pTrigger==true)
             {
                 if (Random.value <= 0.06)
@@ -58,6 +57,7 @@ public class EnemyHealth : MonoBehaviour
                     SpawnController.startPowerUpSpawnWaitFunc();
                 }
             }
+            UIAndScores.AddScore(ScoreValue);
             Destroy(gameObject);
             UIAndScores.BulletLevelupSlider.value += Amount*2;
         }
