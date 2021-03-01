@@ -57,10 +57,12 @@ public class UIAndScores : MonoBehaviour
             {
                 pauseUI.SetActive(false);
             }
-            if(PlayerController.newPower==1)
+            if (PlayerController.newPower == 1)
             {
                 Time.timeScale = 0.2f;
             }
+            else if (Input.GetMouseButton(1))
+                Time.timeScale = 3f;
             else Time.timeScale = 1f;
         }
         else

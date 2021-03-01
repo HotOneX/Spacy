@@ -11,6 +11,7 @@ public class Boss1 : MonoBehaviour
 
     public GameObject shield;
     private Material shieldmat;
+    private Coroutine checkshield;
 
     private BossHealth BossHealth;
     public GameObject[] Bullets;
@@ -28,7 +29,6 @@ public class Boss1 : MonoBehaviour
     public Animator anim;
 
     private bool check;
-    private float n;
     
 
     private GameObject Player;
@@ -98,7 +98,7 @@ public class Boss1 : MonoBehaviour
         while (true)
         {
             yield return StartCoroutine(MidWeapon(5));
-            yield return StartCoroutine(ReturnToCenter(4f, 3));
+            yield return StartCoroutine(ReturnToCenter(3, 4f));
             yield return new WaitForSeconds(1f);
             yield return StartCoroutine(WeakWeaponLefttoRight(1));
             yield return new WaitForSeconds(3f);
@@ -107,22 +107,47 @@ public class Boss1 : MonoBehaviour
     }
     private IEnumerator Phase2()
     {
-        yield return new WaitForSeconds(1f);
-        anim.Play("GunsPowerOn", 0);
-        yield return new WaitForSeconds(2f);
-        StartCoroutine(Shield());
-        yield return new WaitForSeconds(8f);
-        yield return StartCoroutine(MidWeapon(5));
-        yield return StartCoroutine(ReturnToCenter(4f, 3));
-        yield return new WaitForSeconds(4f);
-        yield return StartCoroutine(PowerGuns());
-        yield return new WaitForSeconds(1f);
-        //yield return StartCoroutine(MidWeapon(5));
-        yield return null;
+        while (true)
+        {
+            yield return new WaitForSeconds(1f);
+            if (Guns[2].transform.localPosition.z != 4.1f)
+                anim.Play("GunsPowerOn", 0);
+            yield return new WaitForSeconds(2f);
+            checkshield = StartCoroutine(Shield());
+            yield return new WaitForSeconds(6f);
+            yield return StartCoroutine(MidWeapon(5));
+            yield return StartCoroutine(ReturnToCenter(3, 4f));
+            yield return new WaitForSeconds(4f);
+            yield return StartCoroutine(PowerGuns());
+            yield return new WaitForSeconds(1f);
+        }
     }
     private IEnumerator Phase3()
     {
-        yield return null;
+        while (true)
+        {
+            checkshield = StartCoroutine(Shield());
+            yield return new WaitForSeconds(3f);
+            StartCoroutine(CircleGuns(10,5f));
+            yield return StartCoroutine(PowerWeapon(2,5f));
+            yield return new WaitForSeconds(3f);
+            if (shieldmat.GetVector("_Position").x != 0)
+                yield return new WaitForSeconds(1f);
+            if(anim.GetCurrentAnimatorStateInfo(1).IsName("Idle"))
+                StopCoroutine(checkshield);
+            if (Guns[1].transform.position != new Vector3(3, 0.55f, -0.3f))
+            {
+                anim.Play("Left", 1);
+                yield return new WaitForSeconds(2f);
+            }
+            if (Guns[0].transform.localPosition.z != 1)
+                anim.Play("Intro", 2);
+            if (Guns[1].transform.localPosition.z != 0)
+                anim.Play("Intro", 1);
+            yield return new WaitForSeconds(2f);
+            yield return StartCoroutine(DoubleGuns());
+            yield return null;
+        }
     }
 
     private IEnumerator MidWeapon(int n)
@@ -144,45 +169,43 @@ public class Boss1 : MonoBehaviour
     }
     private IEnumerator WeakWeaponLefttoRight(float wait)
     {
-        anim.Play("Intro", 0);
-        yield return new WaitForSeconds(3f);
-        timer = weakGunFireRate;
-        anim.Play("MainGun1");
+        if(Guns[0].transform.localPosition.z!=1)
+            anim.Play("Intro", 0);
+        yield return new WaitForSeconds(2f);
+        float timer;
+        anim.Play("MainGun1",2);
         yield return null;
-        while (anim.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.MainGun1"))
+        for (timer = weakGunFireRate; anim.GetCurrentAnimatorStateInfo(2).IsName("MainGun1"); timer += Time.deltaTime)
         {
-            timer += Time.deltaTime;
             if (timer >= weakGunFireRate)
             {
                 Instantiate(Bullets[0], Guns[0].transform.position, Guns[0].transform.rotation);
                 timer = 0;
             }
-            Quaternion euler = Quaternion.Euler(transform.rotation.x, 150, transform.rotation.z);
-            Guns[0].transform.rotation = Quaternion.RotateTowards(Guns[0].transform.rotation, euler, 40f * Time.deltaTime);
             yield return null;
         }
         yield return new WaitForSeconds(wait);
-        anim.Play("MainGun2");
+        anim.Play("MainGun2",2);
         yield return null;
-        while (anim.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.MainGun2"))
+        //euler = Quaternion.Euler(transform.rotation.x, -150, transform.rotation.z);
+        for (timer = weakGunFireRate; anim.GetCurrentAnimatorStateInfo(2).IsName("MainGun2"); timer += Time.deltaTime)
         {
-            timer += Time.deltaTime;
             if (timer >= weakGunFireRate)
             {
                 Instantiate(Bullets[0], Guns[0].transform.position, Guns[0].transform.rotation);
                 timer = 0;
             }
-            Quaternion euler = Quaternion.Euler(transform.rotation.x, -150, transform.rotation.z);
-            Guns[0].transform.rotation = Quaternion.RotateTowards(Guns[0].transform.rotation, euler, 40f * Time.deltaTime);
+            //Guns[0].transform.rotation = Quaternion.RotateTowards(Guns[0].transform.rotation, euler, 40f * Time.deltaTime);
             yield return null;
         }
         
     }
-    private IEnumerator WeakWeaponRighttoLeft(float t)
+    private IEnumerator WeakWeaponRighttoLeft(float wait)
     {
-        anim.Play("Intro", 1);
+        if (Guns[1].transform.localPosition.z != 0)
+            anim.Play("Intro", 1);
         yield return new WaitForSeconds(2f);
-        timer = weakGunFireRate;
+        float timer = weakGunFireRate;
         anim.Play("MainGun3");
         yield return null;
         while (anim.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.MainGun3"))
@@ -193,11 +216,11 @@ public class Boss1 : MonoBehaviour
                 Instantiate(Bullets[0], Guns[1].transform.position, Guns[1].transform.rotation);
                 timer = 0;
             }
-            Quaternion euler = Quaternion.Euler(transform.rotation.x, 150, transform.rotation.z);
+            Quaternion euler = Quaternion.Euler(transform.rotation.x, -150, transform.rotation.z);
             Guns[1].transform.rotation = Quaternion.RotateTowards(Guns[1].transform.rotation, euler, 40f * Time.deltaTime);
             yield return null;
         }
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(wait);
         timer = weakGunFireRate;
         anim.Play("MainGun4");
         yield return null;
@@ -209,41 +232,91 @@ public class Boss1 : MonoBehaviour
                 Instantiate(Bullets[0], Guns[1].transform.position, Guns[1].transform.rotation);
                 timer = 0;
             }
-            Quaternion euler = Quaternion.Euler(transform.rotation.x, -150, transform.rotation.z);
+            Quaternion euler = Quaternion.Euler(transform.rotation.x, 150, transform.rotation.z);
             Guns[1].transform.rotation = Quaternion.RotateTowards(Guns[1].transform.rotation, euler, 40f * Time.deltaTime);
             yield return null;
         }
     }
-    private IEnumerator PowerWeapon(int n=2)
+    private IEnumerator DoubleGuns()
+    {
+        anim.Play("doubleGuns", 2);
+        yield return null;
+        float timer;
+        for(timer=0.3f; anim.GetCurrentAnimatorStateInfo(2).IsName("doubleGuns"); timer+=Time.deltaTime)
+        {
+            if (timer >= 0.18)
+            {
+                Instantiate(Bullets[0], Guns[0].transform.position, Guns[0].transform.rotation);
+                Instantiate(Bullets[0], Guns[1].transform.position, Guns[1].transform.rotation);
+                timer = 0;
+            }
+            yield return null;
+        }
+        yield return new WaitForSeconds(1.5f);
+        anim.Play("doubleGunsRev", 2);
+        yield return null;
+        for (timer = 0.3f; anim.GetCurrentAnimatorStateInfo(2).IsName("doubleGunsRev"); timer += Time.deltaTime)
+        {
+            if (timer >= 0.18)
+            {
+                Instantiate(Bullets[0], Guns[0].transform.position, Guns[0].transform.rotation);
+                Instantiate(Bullets[0], Guns[1].transform.position, Guns[1].transform.rotation);
+                timer = 0;
+            }
+            yield return null;
+        }
+    }
+    private IEnumerator CircleGuns(int n=1,float wait=1)
     {
         while (n > 0)
         {
-            transform.GetChild(5).gameObject.SetActive(true);
+            anim.Play("MainGun1Circle", 2);
+            yield return null;
+            float timer;
+            for (timer = 0.3f; anim.GetCurrentAnimatorStateInfo(2).IsName("MainGun1Circle"); timer += Time.deltaTime)
+            {
+                if (timer >= 0.1)
+                {
+                    Instantiate(Bullets[0], Guns[0].transform.position, Guns[0].transform.rotation);
+                    timer = 0;
+                }
+                yield return null;
+            }
+            yield return new WaitForSeconds(wait);
+            n--;
+        }
+    }
+    private IEnumerator PowerWeapon(int n = 2, float speed = 3f)
+    {
+        while (n > 0)
+        {
+            transform.GetChild(3).gameObject.SetActive(true);
             yield return new WaitForSeconds(7f);
-            transform.GetChild(5).gameObject.SetActive(false);
+            transform.GetChild(3).gameObject.SetActive(false);
             yield return new WaitForSeconds(1f);
-            yield return StartCoroutine(TransformtoX(5.2f));
+            yield return StartCoroutine(TransformtoX(5.2f, speed));
             yield return new WaitForSeconds(1f);
-            transform.GetChild(5).gameObject.SetActive(true);
+            transform.GetChild(3).gameObject.SetActive(true);
             yield return new WaitForSeconds(5f);
-            yield return StartCoroutine(TransformtoX(-3f));
+            yield return StartCoroutine(TransformtoX(-3f, speed));
             yield return new WaitForSeconds(1f);
-            transform.GetChild(5).gameObject.SetActive(false);
+            transform.GetChild(3).gameObject.SetActive(false);
             yield return new WaitForSeconds(1f);
-            yield return StartCoroutine(TransformtoX(-5.2f));
+            yield return StartCoroutine(TransformtoX(-5.2f, speed));
             yield return new WaitForSeconds(1f);
-            transform.GetChild(5).gameObject.SetActive(true);
+            transform.GetChild(3).gameObject.SetActive(true);
             yield return new WaitForSeconds(5f);
-            yield return StartCoroutine(TransformtoX(3f));
+            yield return StartCoroutine(TransformtoX(3f, speed));
             yield return new WaitForSeconds(1f);
-            transform.GetChild(5).gameObject.SetActive(false);
-            yield return StartCoroutine(ReturnToCenter(4f, 3));
+            transform.GetChild(3).gameObject.SetActive(false);
+            yield return StartCoroutine(ReturnToCenter(3, 4f));
             n--;
         }
     }
     private IEnumerator PowerGuns()
     {
-        anim.Play("GunsIntro");
+        if (Guns[2].transform.localPosition.z != 0)
+            anim.Play("GunsIntro");
         yield return new WaitForSeconds(2f);
         yield return StartCoroutine(ShootandRotateLaser());
         Vector3 pos = new Vector3(-3.5f, GunsParent.transform.localPosition.y, 2.5f);
@@ -264,6 +337,7 @@ public class Boss1 : MonoBehaviour
             yield return null;
         }
         yield return new WaitForSeconds(0.5f);
+        StartCoroutine(WeakWeaponLefttoRight(3));
         yield return StartCoroutine(ShootandRotateLaser());
         pos = new Vector3(0.0f, GunsParent.transform.localPosition.y, 0.0f);
         anim.Play("Guns");
@@ -272,10 +346,13 @@ public class Boss1 : MonoBehaviour
             GunsParent.transform.localPosition = Vector3.MoveTowards(GunsParent.transform.localPosition, pos, Time.deltaTime * 2.1f);
             yield return null;
         }
+        anim.Play("GunsIntroRev");
+        yield return new WaitForSeconds(1f);
     }
     private IEnumerator Shield()
     {
-        anim.Play("Intro", 1);
+        if (Guns[1].transform.localPosition.z != 0)
+            anim.Play("Intro", 1);
         yield return new WaitForSeconds(2f);
         while (true)
         {
@@ -341,7 +418,7 @@ public class Boss1 : MonoBehaviour
             yield return new WaitForSeconds(10f);
         }
     }
-    IEnumerator ReturnToCenter(float Speed,float distance)
+    IEnumerator ReturnToCenter(float distance,float Speed)
     {
         check = true;
         while (transform.position != movtoCenter)
@@ -355,12 +432,12 @@ public class Boss1 : MonoBehaviour
             yield return null;
         }
     }
-    IEnumerator TransformtoX(float x)
+    IEnumerator TransformtoX(float x, float speed)
     {
         while (transform.position.x != x)
         {
             transform.position = new Vector3(
-                Mathf.MoveTowards(transform.position.x, x, 3f * Time.deltaTime),
+                Mathf.MoveTowards(transform.position.x, x, speed * Time.deltaTime),
                 transform.position.y,
                 transform.position.z
                 );
@@ -373,7 +450,7 @@ public class Boss1 : MonoBehaviour
         yield return new WaitForSeconds(4f);
         GunsParent.transform.GetChild(5).gameObject.SetActive(true);
         yield return new WaitForSeconds(1f);
-        Quaternion euler = Quaternion.Euler(transform.rotation.x, -180f, transform.rotation.z);
+        Quaternion euler = Quaternion.Euler(GunsParent.transform.rotation.x, -180f, GunsParent.transform.rotation.z);
         bool turnedOn = true;
         while (GunsParent.transform.rotation != euler)
         {
@@ -395,7 +472,7 @@ public class Boss1 : MonoBehaviour
 
             yield return null;
         }
-        euler = Quaternion.Euler(transform.rotation.x, -360f, transform.rotation.z);
+        euler = Quaternion.Euler(GunsParent.transform.rotation.x, -270f, GunsParent.transform.rotation.z);
         while (GunsParent.transform.rotation != euler)
         {
             timer += Time.deltaTime;
@@ -417,11 +494,14 @@ public class Boss1 : MonoBehaviour
         }
         GunsParent.transform.GetChild(5).gameObject.SetActive(false);
         GunsParent.transform.GetChild(4).gameObject.SetActive(false);
+        GunsParent.transform.rotation = Quaternion.Euler(Vector3.zero);
     }
     void StopAll()
     {
         StopAllCoroutines();
         transform.GetChild(4).gameObject.SetActive(false);
+        GunsParent.transform.GetChild(5).gameObject.SetActive(false);
+        GunsParent.transform.GetChild(4).gameObject.SetActive(false);
         StartCoroutine(BossControl(4f));
     }
 }
