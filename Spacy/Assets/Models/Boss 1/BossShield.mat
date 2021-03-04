@@ -53,6 +53,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - Vector1_1EA51851: 0.77
     - Vector1_CAFDA3B2: 4
     - Vector1_D6CCC11C: 70
     - _AlphaClip: 0
@@ -66,6 +67,8 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
+    - _ImpactRippleAmplitude: 0.84
+    - _ImpactRippleMaxRadius: 0.43
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _QueueOffset: 0
@@ -84,6 +87,8 @@ Material:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _ImpactPoint: {r: 1.48, g: 4.01, b: 1.86, a: 0}
+    - _ImpactRippleDirection: {r: 0, g: 0, b: 1, a: 0}
     - _Position: {r: 0, g: 0, b: 0, a: 0}
     - _ShieldDistortionColor: {r: 15.999998, g: 0.3350785, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
