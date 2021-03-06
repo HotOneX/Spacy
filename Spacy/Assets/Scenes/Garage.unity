@@ -1622,6 +1622,11 @@ PrefabInstance:
       propertyPath: garageView
       value: 
       objectReference: {fileID: 946113402}
+    - target: {fileID: 9107571843563025385, guid: 68307701a0084c340b872996934dfb86,
+        type: 3}
+      propertyPath: lineDrawSpeed
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 9107571843563025386, guid: 68307701a0084c340b872996934dfb86,
         type: 3}
       propertyPath: m_LocalPosition.x

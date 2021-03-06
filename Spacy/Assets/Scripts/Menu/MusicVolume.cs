@@ -15,13 +15,6 @@ public class MusicVolume : MonoBehaviour
     private float muteSfx;
     private bool toggleOn;
 
-    //private AudioSource audioVolume;
-
-    private void Awake()
-    {
-
-    }
-
     private void Start()
     {
         Slider.value = PlayerPrefs.GetFloat("bgSound", 0);
@@ -50,8 +43,6 @@ public class MusicVolume : MonoBehaviour
     {
         mixer.SetFloat("bgSound", Mathf.Log10(sliderValue) * 20);
         PlayerPrefs.SetFloat("bgSound", sliderValue);
-
-        //Debug.Log("slider value: " + PlayerPrefs.GetFloat("bgSound", 0));
     }
 
     public void SfxVolume()

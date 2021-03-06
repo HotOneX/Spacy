@@ -22,7 +22,7 @@ public class RotateInGarage : MonoBehaviour
     //private int curStage;  
     private float x;
     private float y;
-    private Vector3 prevPos = Vector3.zero;
+    //private Vector3 prevPos = Vector3.zero;
     private GameObject[] lines;
     private LineAnimation LineAnimation;
     private LineRenderer LineRenderer;
@@ -57,7 +57,7 @@ public class RotateInGarage : MonoBehaviour
         {
             backCamera = false;
             RotateCamera();
-            prevPos = Input.mousePosition;
+            //prevPos = Input.mousePosition;
             tCamera = 0;
         }
         else if (Input.GetMouseButtonUp(0) && !hittedPlayer)
@@ -67,12 +67,12 @@ public class RotateInGarage : MonoBehaviour
 
         if (Input.GetMouseButtonUp(0)) hittedPlayer = false;
         if(backCamera) Camera.transform.rotation = Quaternion.Euler(SmoothlyMove(x, cameraR.eulerAngles.x, y, cameraR.eulerAngles.y));
-        print("hiited player: "+hittedPlayer);
+        //print("hiited player: "+hittedPlayer);
     }
 
     private void TurnLinesOff()
     {
-        print("turning OFF");
+        //print("turning OFF");
         foreach (GameObject go in lines)
         {
             LineRenderer = go.GetComponent<LineRenderer>();
@@ -84,7 +84,7 @@ public class RotateInGarage : MonoBehaviour
 
     private void TurnLinesOn()
     {
-        print("turning ON");
+        //print("turning ON");
         foreach (GameObject go in lines)
         {
             LineRenderer = go.GetComponent<LineRenderer>();
