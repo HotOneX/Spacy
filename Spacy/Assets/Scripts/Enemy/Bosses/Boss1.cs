@@ -384,24 +384,18 @@ public class Boss1 : MonoBehaviour
     private IEnumerator GunsMidWeapon(int n=5)
     {
         
-        yield return new WaitForSeconds(2f);
         Guns[2].transform.SetParent(GunsParent2.transform);
         Guns[3].transform.SetParent(GunsParent2.transform);
         Guns[4].transform.SetParent(GunsParent3.transform);
         Guns[5].transform.SetParent(GunsParent3.transform);
-        yield return new WaitForSeconds(3f);
         anim.Rebind();
-        while (Guns[2].transform.localPosition.x > -1)
-        { 
-            anim.Play("GunsMidWeapon");
-            yield return new WaitForSeconds(2f);
-        }
-        while (GunsParent2.transform.localPosition.x > -7) ;
+        anim.Play("GunsMidWeapon");
+        while (GunsParent2.transform.localPosition.x > -7)
         {
-            GunsParent2.transform.localPosition = Vector3.MoveTowards(GunsParent2.transform.localPosition, new Vector3(-7, 0, 0), Time.deltaTime * 2f);
-            GunsParent2.transform.localRotation = Quaternion.RotateTowards(GunsParent2.transform.localRotation, Quaternion.Euler(0f, 135f, 0f), 60f * Time.deltaTime);
-            GunsParent3.transform.localPosition = Vector3.MoveTowards(GunsParent3.transform.localPosition, new Vector3(7, 0, 0), Time.deltaTime * 2f);
-            GunsParent3.transform.localRotation = Quaternion.RotateTowards(GunsParent3.transform.localRotation, Quaternion.Euler(0f, -135f, 0f), 60f * Time.deltaTime);
+            GunsParent2.transform.localPosition = Vector3.MoveTowards(GunsParent2.transform.localPosition, new Vector3(-7, 0, 0), Time.deltaTime * 5f);
+            GunsParent2.transform.localRotation = Quaternion.RotateTowards(GunsParent2.transform.localRotation, Quaternion.Euler(0f, 135f, 0f), 100f * Time.deltaTime);
+            GunsParent3.transform.localPosition = Vector3.MoveTowards(GunsParent3.transform.localPosition, new Vector3(7, 0, 0), Time.deltaTime * 5f);
+            GunsParent3.transform.localRotation = Quaternion.RotateTowards(GunsParent3.transform.localRotation, Quaternion.Euler(0f, -135f, 0f), 100f * Time.deltaTime);
             yield return null;
         }
         yield return new WaitForSeconds(1f);
@@ -410,8 +404,8 @@ public class Boss1 : MonoBehaviour
         {
             while (timer < 3)
             {
-                GunsParent2.transform.rotation = Quaternion.RotateTowards(GunsParent2.transform.rotation, Quaternion.LookRotation(Player.transform.position), Time.deltaTime * 4f);
-                GunsParent3.transform.rotation = Quaternion.RotateTowards(GunsParent3.transform.rotation, Quaternion.LookRotation(Player.transform.position), Time.deltaTime * 4f);
+                GunsParent2.transform.rotation = Quaternion.RotateTowards(GunsParent2.transform.rotation, Quaternion.LookRotation(Player.transform.position-GunsParent2.transform.position), Time.deltaTime * 15f);
+                GunsParent3.transform.rotation = Quaternion.RotateTowards(GunsParent3.transform.rotation, Quaternion.LookRotation(Player.transform.position-GunsParent3.transform.position), Time.deltaTime * 15f);
                 //GunsParent2.transform.LookAt(Player.transform);
                 timer += Time.deltaTime;
                 yield return null;
