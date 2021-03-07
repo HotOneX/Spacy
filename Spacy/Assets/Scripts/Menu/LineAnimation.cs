@@ -15,12 +15,10 @@ public class LineAnimation : MonoBehaviour
     private int positionIndex = 0;
     private Vector3[] positions = new Vector3[3];
     private Vector3 curPosition;
-    private Vector3 t = Vector3.zero;
     private int back = 0;
     private bool onWay = true;
     private bool onBack = false;
     public GameObject garageView;
-    private bool spaceshipHitted;
     private RotateInGarage rotateInGarage;
 
     void Start()
@@ -33,25 +31,27 @@ public class LineAnimation : MonoBehaviour
             lineRenderer.positionCount --;
         //lineRenderer.SetWidth(0.45f, 0.45f);
         positions[0] = startPoint.transform.position;
+        curPosition = positions[0];
         positions[1] = new Vector3(targetPanel.transform.position.x - offsetPanel.x, startPoint.transform.position.y, startPoint.transform.position.z);
+
         TargertPanelReposition();
         // Debug.Log(positions[0] + "  " + positions[1] + "  " + positions[2]);
         rotateInGarage = garageView.GetComponent<RotateInGarage>();
-        Debug.Log(rotateInGarage.hittedPlayer);
+        //Debug.Log(rotateInGarage.hittedPlayer);
     }
 
     public void TargertPanelReposition()
     {
-        positions[2] = targetPanel.transform.position - offsetPanel;
+        positions[2] = targetPanel.transform.position;
     }
 
     void Update()
     {
-        if (Input.GetMouseButton(0)) spaceshipHitted = rotateInGarage.hittedPlayer;
-        //Debug.Log("line hitted: " + rotateInGarage.hittedPlayer);
+        //bool spaceshipHitted;
+        //if (Input.GetMouseButton(0)) spaceshipHitted = rotateInGarage.hittedPlayer;
         if (Input.GetMouseButtonUp(0))
         {
-            spaceshipHitted = false;
+            //spaceshipHitted = false;
             back = 0;
             onWay = true;
         }
@@ -63,7 +63,7 @@ public class LineAnimation : MonoBehaviour
 
         if (back == 0)
         {
-            if (lineRenderer.positionCount <= positions.Length)
+            if (lineRenderer.positionCount <= positions.Length && curPosition != positions[positions.Length-1])
             {
                 //print("Pos index" + positionIndex);
                 //print("creating line");
@@ -75,13 +75,19 @@ public class LineAnimation : MonoBehaviour
                 if (onBack)
                 {
                     //print("reset t");
-                    t = Vector3.one - t;
+                    //t = Vector3.one - t;
                     onBack = false;
                     positionIndex--;
                 }
-                curPosition = SmoothlyMove(positions[positionIndex], positions[positionIndex + 1]);
-                if (lineRenderer.positionCount < 3 && lineRenderer.GetPosition(positionIndex + 1) == Vector3.zero)
-                    lineRenderer.positionCount++;
+                if(lineRenderer.positionCount < 3)
+                    if(curPosition == positions[positionIndex + 1])
+                    {
+                        positionIndex++;
+                    }
+                curPosition = SmoothlyMove(curPosition, positions[positionIndex + 1]);
+                if (lineRenderer.positionCount < 3)
+                    if(lineRenderer.GetPosition(positionIndex + 1) == Vector3.zero)
+                        lineRenderer.positionCount++;
 
                 lineRenderer.SetPosition(positionIndex + 1, curPosition);
             }
@@ -98,53 +104,44 @@ public class LineAnimation : MonoBehaviour
                 //print("Pos index" + positionIndex);
                 //print("PoIndex: " + positionIndex);
                 positions[0] = startPoint.transform.position;
-                positions[1] = positions[1] = new Vector3(targetPanel.transform.position.x - offsetPanel.x, startPoint.transform.position.y, startPoint.transform.position.z);
+                positions[1] = new Vector3(targetPanel.transform.position.x - offsetPanel.x, startPoint.transform.position.y, startPoint.transform.position.z);
                 lineRenderer.SetPosition(0, startPoint.transform.position);
                 if (onWay)
                 {
                     //print("reset t");
-                    if (t != Vector3.zero)
+                   /* if (t != Vector3.zero)
                         t = Vector3.one - t;
-                    onWay = false;
+                    onWay = false;*/
                     if (positionIndex < positions.Length - 1)
                         positionIndex++;
                 }
+                if (curPosition == positions[positionIndex - 1])
+                {
+                    positionIndex--;
+                }
                 //lineRenderer.SetPosition(1, new Vector3(lineRenderer.GetPosition(1).x, startPoint.transform.position.y, startPoint.transform.position.z));
-                curPosition = SmoothlyMove(positions[positionIndex], positions[positionIndex - 1]);
+                curPosition = SmoothlyMove(curPosition, positions[positionIndex - 1]);
                 lineRenderer.SetPosition(positionIndex, curPosition);
             }
             else
             {
                 onBack = false;
+                positionIndex = 0;
             }
         }
     }
 
-    private bool GetHittedPlayer()
-    {
-        
-        return spaceshipHitted;
-    }
-
     private Vector3 SmoothlyMove(Vector3 startPos, Vector3 endPos)
     {
-        Vector3 position = new Vector3(Mathf.Lerp(startPos.x, endPos.x, t.x += lineDrawSpeed * Time.deltaTime),
-                                       Mathf.Lerp(startPos.y, endPos.y, t.y += lineDrawSpeed * Time.deltaTime),
-                                       Mathf.Lerp(startPos.z, endPos.z, t.z += lineDrawSpeed * Time.deltaTime));
-        StopSwitching();
-        return position;
-    }
+        Vector3 position = Vector3.MoveTowards(startPos, endPos, lineDrawSpeed);
 
-    private void StopSwitching()
-    {
-        if (t.x > 1 || t.y > 1 || t.z > 1)
+        if (endPos == position)
         {
-            t = Vector3.zero;
             if (positionIndex < positions.Length - 1 && back == 0)
             {
                 positionIndex++;
             }
-            else if (/*positionIndex > 1 && */lineRenderer.positionCount > 1 && back == 1)
+            else if (lineRenderer.positionCount > 1 && back == 1)
             {
                 lineRenderer.positionCount--;
                 positionIndex--;
@@ -155,5 +152,6 @@ public class LineAnimation : MonoBehaviour
                 back = -1;
             }
         }
+        return position;
     }
 }
