@@ -34,7 +34,7 @@ public class BossShield : MonoBehaviour
                 Instantiate(Explosion, transform.position, transform.rotation);
             }
             UIAndScores.BulletLevelupSlider.value += Amount * 2;
-            Health = 200;
+            Health = 400;
         }
     }
 }
