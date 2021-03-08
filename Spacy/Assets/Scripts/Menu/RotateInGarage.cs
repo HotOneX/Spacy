@@ -36,8 +36,7 @@ public class RotateInGarage : MonoBehaviour
     {
         if(Camera.isActiveAndEnabled)
         {
-            DetectHit();
-            
+            DetectHit();         
         }
 
         lines = GameObject.FindGameObjectsWithTag("Line");

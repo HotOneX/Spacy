@@ -9,7 +9,6 @@ public class SlideStagesGarage : MonoBehaviour
     public List<GameObject> stages = new List<GameObject>();
     public GameObject nextButton;
     public GameObject prevButton;
-    public GameObject mainCamera;
     public GameObject garage;
     public float moveSpeed;
     public float t = 0.0f;
@@ -20,13 +19,15 @@ public class SlideStagesGarage : MonoBehaviour
     private bool next,prev = false;
     private float initialX;
     private float destination;
+    private bool BTM = false;
+    private Animator ToMenu;
 
     private void Awake()
     {
         cameraT =this.transform.localPosition;
         initialX = cameraT.x;
         destination = initialX;
-}
+    }
 
     void Update()
     {
@@ -41,7 +42,19 @@ public class SlideStagesGarage : MonoBehaviour
                 break;
         }
 
-        if (next || prev) NextMove();
+        if (BTM)
+        {
+            NextMove();
+            if (this.transform.localPosition.x == destination) BTM = false;
+            else if (Mathf.Abs(this.transform.localPosition.x - destination) < 1)
+            {
+                
+                ToMenu = garage.GetComponent<Animator>();
+                ToMenu.enabled = true;
+                ToMenu.Play("BackToMenu");
+            }
+        }
+        else if (next || prev) NextMove();
     }
 
     private void SetSlideButtons(bool _prev, bool _next)
@@ -57,20 +70,25 @@ public class SlideStagesGarage : MonoBehaviour
 
     public void PrevClick()
     {
-        prev = true;
-        currentStage--;
-        destination -= stagesDistance;
-        t = 0;
-
+        if (currentStage > 1)
+        {
+            prev = true;
+            currentStage--;
+            destination -= stagesDistance;
+            t = 0;
+        }
     }
 
     public void NextClick()
     {
-        garage.GetComponent<Animator>().enabled = false;
-        next = true;
-        currentStage++;
-        destination += stagesDistance;
-        t = 0;
+        if (currentStage < stages.Count)
+        {
+            garage.GetComponent<Animator>().enabled = false;
+            next = true;
+            currentStage++;
+            destination += stagesDistance;
+            t = 0;
+        }
     }
 
     private Vector3 SmoothlyMove( float startPos, float endPos)
@@ -93,5 +111,14 @@ public class SlideStagesGarage : MonoBehaviour
    public void ResetStage()
     {
         destination = initialX;
+    }
+
+    public void BackToMenu()
+    {
+        destination = initialX;
+        currentStage = 1;
+        t = 0;
+        BTM = true;
+        
     }
 }
