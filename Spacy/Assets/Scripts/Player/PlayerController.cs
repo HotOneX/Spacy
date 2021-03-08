@@ -171,13 +171,13 @@ public class PlayerController : MonoBehaviour
             if (other.name == ("2Gun(Clone)"))
             {
                 WeaponNumber = 0;
-                if (weaponLevel < Bullets.MainBullet.Length - 1)
+                if (weaponLevel < Bullets.MainBullet.Length - 1 || weaponLevel <= 5)
                     weaponLevel++;
             }
             else if (other.name == "Acid(Clone)")
             {
                 WeaponNumber = 1;
-                if (weaponLevel < Bullets.AcidBullet.Length - 1)
+                if (weaponLevel < Bullets.AcidBullet.Length - 1 || weaponLevel <= 5)
                     weaponLevel++;
             }
             else if (other.name == "HolyLaser(Clone)")

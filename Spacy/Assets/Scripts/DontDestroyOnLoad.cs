@@ -8,7 +8,7 @@ public class DontdestroyOnLoad : MonoBehaviour
     public static int lastcheckpoint;
     private void Awake()
     {
-        lastcheckpoint = 2;
+        lastcheckpoint = 0;
         if (instance != null)
         {
             Destroy(gameObject);

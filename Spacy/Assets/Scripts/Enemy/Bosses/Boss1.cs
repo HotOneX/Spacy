@@ -61,16 +61,16 @@ public class Boss1 : MonoBehaviour
             }
             yield return null;
         }
-        if (BossHealth.Health > 9000)
+        if (BossHealth.Health > 10000)
         {
             lastRoutine = StartCoroutine(Phase1());
-            yield return new WaitUntil(() => BossHealth.Health < 9000);
+            yield return new WaitUntil(() => BossHealth.Health < 10000);
             StopAll();
         }
-        else if (BossHealth.Health > 4000)
+        else if (BossHealth.Health > 5000)
         {
             lastRoutine = StartCoroutine(Phase2());
-            yield return new WaitUntil(() => BossHealth.Health < 4000);
+            yield return new WaitUntil(() => BossHealth.Health < 5000);
             StopAll();
         }
         else
@@ -123,9 +123,26 @@ public class Boss1 : MonoBehaviour
     }
     private IEnumerator Phase3()
     {
+        Vector3 pos = new Vector3(0f, 0f, 0f);
+        Quaternion euler = Quaternion.Euler(0f, 0f, 0f);
+        bool tempcheck = false;
+        while (GunsParent.transform.localPosition != pos && GunsParent.transform.rotation!=euler)
+        {
+            GunsParent.transform.localPosition = Vector3.MoveTowards(GunsParent.transform.localPosition, pos, Time.deltaTime * 2.1f);
+            GunsParent.transform.rotation = Quaternion.RotateTowards(GunsParent.transform.rotation, euler, 100f * Time.deltaTime);
+            tempcheck = true;
+            yield return null;
+        }
+        if (tempcheck || Guns[0].transform.localPosition.x == (-0.7f))
+        {
+            anim.Play("GunsIntroRev");
+            yield return new WaitForSeconds(2f);
+        }
         while (true)
         {
-            yield return StartCoroutine(GunsMidWeapon());
+            yield return new WaitForSeconds(1f);
+            yield return StartCoroutine(GunsMidWeapon(7));
+            yield return new WaitForSeconds(1f);
             checkshield = StartCoroutine(Shield());
             yield return new WaitForSeconds(3f);
             StartCoroutine(CircleGuns(10,5f));
@@ -416,6 +433,22 @@ public class Boss1 : MonoBehaviour
             n--;
             yield return null;
         }
+        yield return new WaitForSeconds(1f);
+        anim.Play("GunsMidWeaponRev");
+        while (GunsParent2.transform.localPosition.x < 0)
+        {
+            GunsParent2.transform.localPosition = Vector3.MoveTowards(GunsParent2.transform.localPosition, new Vector3(0, 0, 0), Time.deltaTime * 4f);
+            GunsParent2.transform.localRotation = Quaternion.RotateTowards(GunsParent2.transform.localRotation, Quaternion.Euler(0f, 0f, 0f), 110f * Time.deltaTime);
+            GunsParent3.transform.localPosition = Vector3.MoveTowards(GunsParent3.transform.localPosition, new Vector3(0, 0, 0), Time.deltaTime * 4f);
+            GunsParent3.transform.localRotation = Quaternion.RotateTowards(GunsParent3.transform.localRotation, Quaternion.Euler(0f, 0f, 0f), 110f * Time.deltaTime);
+            yield return null;
+        }
+        yield return new WaitForSeconds(1f);
+        Guns[2].transform.SetParent(GunsParent.transform);
+        Guns[3].transform.SetParent(GunsParent.transform);
+        Guns[4].transform.SetParent(GunsParent.transform);
+        Guns[5].transform.SetParent(GunsParent.transform);
+        //anim.Rebind();
     }
     IEnumerator ReturnToCenter(float distance,float Speed)
     {

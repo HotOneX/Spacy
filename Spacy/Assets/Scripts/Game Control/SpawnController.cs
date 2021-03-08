@@ -297,8 +297,10 @@ public class SpawnController : MonoBehaviour
             NextlevelText.gameObject.SetActive(false);
             yield return new WaitForSeconds(1f);
             Bosses[0].SetActive(true);
-            yield return new WaitUntil(() => GameObject.FindGameObjectsWithTag("Enemy").Length == 0);
-            NextlevelText.text = "congratulation :), Chapter 1 is Completed";
+            yield return new WaitUntil(() => GameObject.FindGameObjectsWithTag("Boss").Length == 0);
+            yield return new WaitForSeconds(1f);
+            NextlevelText.text = "congratulation :) \n Chapter 1 is Completed...";
+            NextlevelText.gameObject.SetActive(true);
         }
     }
     //#####################################################

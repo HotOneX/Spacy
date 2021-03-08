@@ -74,7 +74,7 @@ public class UIAndScores : MonoBehaviour
             Time.timeScale = 0.1f;
         }
         Time.fixedDeltaTime = Time.timeScale * 0.02f;
-        if(BulletLevelupSlider.value==BulletLevelupSlider.maxValue && PlayerController.weaponLevel < 14)
+        if(BulletLevelupSlider.value==BulletLevelupSlider.maxValue && PlayerController.weaponLevel <= 5)
         {
             PlayerController.weaponLevel++;
             BulletLevelupSlider.maxValue = 600 + PlayerController.weaponLevel * 400;
