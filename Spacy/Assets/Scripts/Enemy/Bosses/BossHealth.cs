@@ -58,4 +58,9 @@ public class BossHealth : MonoBehaviour
     {
         rend.material = origmat;
     }
+
+    public void SetHealth(int h)
+    {
+        Health = h;
+    }
 }

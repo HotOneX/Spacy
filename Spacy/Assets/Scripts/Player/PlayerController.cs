@@ -166,9 +166,10 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerEnter(Collider other)// for powers
     {
+        Debug.Log(weaponLevel);
         if (other.CompareTag("Powers"))
         {
-            if (other.name == ("2Gun(Clone)"))
+            if (other.name == "2Gun(Clone)")
             {
                 WeaponNumber = 0;
                 if (weaponLevel < Bullets.MainBullet.Length - 1 || weaponLevel <= 5)
@@ -176,9 +177,18 @@ public class PlayerController : MonoBehaviour
             }
             else if (other.name == "Acid(Clone)")
             {
+                Debug.Log("YES");
+                other.gameObject.transform.GetChild(0).gameObject.SetActive(false);
+                other.gameObject.transform.GetChild(1).gameObject.SetActive(false);
+                other.gameObject.transform.GetChild(2).gameObject.SetActive(true);
+                Rigidbody rb = other.GetComponent<Rigidbody>();
+                rb.velocity= Vector3.zero;
+                rb.angularVelocity = Vector3.zero;
+                
                 WeaponNumber = 1;
                 if (weaponLevel < Bullets.AcidBullet.Length - 1 || weaponLevel <= 5)
                     weaponLevel++;
+                Destroy(other.gameObject, 2f);
             }
             else if (other.name == "HolyLaser(Clone)")
             {
@@ -195,7 +205,8 @@ public class PlayerController : MonoBehaviour
                 UIAndScores.powerCounts[1]++;
                 UIAndScores.PowerUpText[1].text = "" + UIAndScores.powerCounts[1];
             }
-            Destroy(other.gameObject);
+            if(other.name!= "Acid(Clone)")
+                Destroy(other.gameObject);
         }
         else if (other.CompareTag("Shield"))
         {

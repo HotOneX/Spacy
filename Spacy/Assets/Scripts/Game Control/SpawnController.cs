@@ -33,7 +33,7 @@ public class SpawnController : MonoBehaviour
     public Vector3 SpawnValues;
     public float StartWait;
 
-
+    public GameObject SetBossPhasePanel;
     public Text RoundText;
     private int Round = 1;
     private GameObject hazard;
@@ -296,6 +296,8 @@ public class SpawnController : MonoBehaviour
             yield return new WaitForSeconds(3f);
             NextlevelText.gameObject.SetActive(false);
             yield return new WaitForSeconds(1f);
+            SetBossPhasePanel.SetActive(true);
+            yield return new WaitUntil(() => SetBossPhasePanel.activeInHierarchy==false);
             Bosses[0].SetActive(true);
             yield return new WaitUntil(() => GameObject.FindGameObjectsWithTag("Boss").Length == 0);
             yield return new WaitForSeconds(1f);
@@ -369,26 +371,6 @@ public class SpawnController : MonoBehaviour
                 Instantiate(Hazards[3], new Vector3(-7f, 8f, 14.25f), Quaternion.identity);
                 yield return new WaitForSeconds(0.7f);
             }
-        }
-    }
-    IEnumerator EnemyRandomSpawn(float k)
-    {
-        for (int j = 0; j < k; j++)
-        {
-
-            // these are the Percentages of spawning for our objects (enemy's)
-            if (Random.value <= 0.2)
-            {
-                hazard = Hazards[Random.Range(0, 3)];
-            }
-            else continue;
-            SpawnPosition = new Vector3(Random.Range(-SpawnValues.x, SpawnValues.x), SpawnValues.y, SpawnValues.z);
-            SpawnRotation = Quaternion.identity;//it work with out identity too like this: new Quaternion()
-            if (hazard)
-            {
-                Instantiate(hazard, SpawnPosition, SpawnRotation);
-            }
-            yield return new WaitForSeconds(0.8f);
         }
     }
     IEnumerator Enemy2SpawnWithDelay()

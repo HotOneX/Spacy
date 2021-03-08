@@ -125,7 +125,7 @@ public class Boss1 : MonoBehaviour
     {
         Vector3 pos = new Vector3(0f, 0f, 0f);
         Quaternion euler = Quaternion.Euler(0f, 0f, 0f);
-        bool tempcheck = false;
+        bool tempcheck = false;//its for check that was it in PowerGuns situation? or not?.
         while (GunsParent.transform.localPosition != pos && GunsParent.transform.rotation!=euler)
         {
             GunsParent.transform.localPosition = Vector3.MoveTowards(GunsParent.transform.localPosition, pos, Time.deltaTime * 2.1f);

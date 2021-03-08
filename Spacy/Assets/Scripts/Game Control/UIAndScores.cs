@@ -9,27 +9,31 @@ public class UIAndScores : MonoBehaviour
 {
     [HideInInspector]
     public static bool GameisStarted;
+    [Header("SpaceShip Color Menu")]
     public Material[] materials1;
     public Material[] materials2;
     public Material[] materials3;
     public Renderer rend;
     public GameObject colormenu;
 
+
+    [Header("Pause UI")]
     public GameObject pauseUI;
     public static int[] powerCounts = { 0, 0, 0 };
     public TextMeshProUGUI[] PowerUpText;
 
+    [Header("in game UI")]
     public Slider BulletLevelupSlider;
     public Text scoreText;
     public GameObject gameOverText;
     public GameObject restartButton;
+    public float Timer=0f;
 
     public GameObject Player1;
     public GameObject Player2;
 
     private int score;
     private float SliderOldValue=0;
-    public float Timer=0f;
 
     public SpawnController spawnController;
 
@@ -135,7 +139,10 @@ public class UIAndScores : MonoBehaviour
             Player1.SetActive(false);
             Player2.SetActive(true);
         }
-        colormenu.SetActive(false);
+    }
+    public void SetLevel(int i)
+    {
+        DontdestroyOnLoad.lastcheckpoint = i;
         GameisStarted = true;
         spawnController.StartGame();
     }
