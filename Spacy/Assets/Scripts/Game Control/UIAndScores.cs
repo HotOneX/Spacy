@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using TMPro;
+using MilkShake;
 
 public class UIAndScores : MonoBehaviour
 {
@@ -31,7 +32,8 @@ public class UIAndScores : MonoBehaviour
 
     public GameObject Player1;
     public GameObject Player2;
-
+    public Shaker myShaker;
+    public ShakePreset shakePreset;
     private int score;
     private float SliderOldValue=0;
 
@@ -68,6 +70,11 @@ public class UIAndScores : MonoBehaviour
             else if (Input.GetMouseButton(1))
                 Time.timeScale = 3f;
             else Time.timeScale = 1f;
+
+            if(Input.GetMouseButtonDown(2))
+            {
+                myShaker.Shake(shakePreset);
+            }
         }
         else
         {
@@ -78,7 +85,7 @@ public class UIAndScores : MonoBehaviour
             Time.timeScale = 0.1f;
         }
         Time.fixedDeltaTime = Time.timeScale * 0.02f;
-        if(BulletLevelupSlider.value==BulletLevelupSlider.maxValue && PlayerController.weaponLevel <= 5)
+        if(BulletLevelupSlider.value==BulletLevelupSlider.maxValue && PlayerController.weaponLevel <= 4)
         {
             PlayerController.weaponLevel++;
             BulletLevelupSlider.maxValue = 600 + PlayerController.weaponLevel * 400;

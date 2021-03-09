@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MilkShake;
 
 public class EnemyHealth : MonoBehaviour
 {
     public int Health;
     public GameObject Explosion;
+    private Shaker myShaker;
+    public ShakePreset shakePreset;
     public Renderer rend;
     private Material origmat;
     public Material flashMaterial;
@@ -19,6 +22,8 @@ public class EnemyHealth : MonoBehaviour
     private void Awake()
     {
         GameObject GameControllerObject = GameObject.FindWithTag("GameController");
+        GameObject Camera = GameObject.FindWithTag("MainCamera");
+        myShaker = Camera.GetComponent<Shaker>();
         UIAndScores = GameControllerObject.GetComponent<UIAndScores>();
         SpawnController = GameControllerObject.GetComponent<SpawnController>();
     }
@@ -43,7 +48,11 @@ public class EnemyHealth : MonoBehaviour
             {
                 Instantiate(Explosion, transform.position, transform.rotation);
             }
-            
+            if (shakePreset != null)
+            {
+
+                myShaker.Shake(shakePreset);
+            }
             if (SpawnController.pTrigger==true)
             {
                 if (Random.value <= 0.06)

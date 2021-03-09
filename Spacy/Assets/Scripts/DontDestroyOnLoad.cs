@@ -19,8 +19,4 @@ public class DontdestroyOnLoad : MonoBehaviour
             DontDestroyOnLoad(this.gameObject);
         }
     }
-    public void SetLevel(int i)
-    {
-        lastcheckpoint = i;
-    }    
 }

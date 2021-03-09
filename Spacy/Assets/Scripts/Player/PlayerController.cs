@@ -172,7 +172,7 @@ public class PlayerController : MonoBehaviour
             if (other.name == "2Gun(Clone)")
             {
                 WeaponNumber = 0;
-                if (weaponLevel < Bullets.MainBullet.Length - 1 || weaponLevel <= 5)
+                if (weaponLevel < Bullets.MainBullet.Length - 1 && weaponLevel <= 4)
                     weaponLevel++;
             }
             else if (other.name == "Acid(Clone)")
@@ -186,7 +186,7 @@ public class PlayerController : MonoBehaviour
                 rb.angularVelocity = Vector3.zero;
                 
                 WeaponNumber = 1;
-                if (weaponLevel < Bullets.AcidBullet.Length - 1 || weaponLevel <= 5)
+                if (weaponLevel < Bullets.AcidBullet.Length - 1 && weaponLevel <= 4)
                     weaponLevel++;
                 Destroy(other.gameObject, 2f);
             }

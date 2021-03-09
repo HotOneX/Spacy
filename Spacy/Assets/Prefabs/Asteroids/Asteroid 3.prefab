@@ -188,6 +188,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Health: 50
   Explosion: {fileID: 100004, guid: 2857e183f4cd3df4e9096e5b578bd32f, type: 3}
+  shakePreset: {fileID: 11400000, guid: 4edea00295cdf4a42a8d9aa6551aff0c, type: 2}
   rend: {fileID: 5323757998690680151}
   flashMaterial: {fileID: 2100000, guid: f5e89666b53075e4e96a9042adbde652, type: 2}
   ScoreValue: 15

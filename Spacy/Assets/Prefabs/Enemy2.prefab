@@ -296,8 +296,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f4ec26e8d8025546b642cdaf5d099c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health: 130
+  Health: 200
   Explosion: {fileID: 100012, guid: 384371afbb4354cc9a3fc68eab303756, type: 3}
+  shakePreset: {fileID: 11400000, guid: 4edea00295cdf4a42a8d9aa6551aff0c, type: 2}
   rend: {fileID: 23284808189323208}
   flashMaterial: {fileID: 2100000, guid: f5e89666b53075e4e96a9042adbde652, type: 2}
   ScoreValue: 30

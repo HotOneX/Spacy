@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MilkShake;
 
 public class Boss1 : MonoBehaviour
 {
@@ -26,6 +27,8 @@ public class Boss1 : MonoBehaviour
 
     public float Speed;
     public Animator anim;
+    public Shaker myShaker;
+    public ShakePreset shakePreset;
 
     private bool check;
     
@@ -65,12 +68,14 @@ public class Boss1 : MonoBehaviour
         {
             lastRoutine = StartCoroutine(Phase1());
             yield return new WaitUntil(() => BossHealth.Health < 10000);
+            myShaker.Shake(shakePreset);
             StopAll();
         }
         else if (BossHealth.Health > 5000)
         {
             lastRoutine = StartCoroutine(Phase2());
             yield return new WaitUntil(() => BossHealth.Health < 5000);
+            myShaker.Shake(shakePreset);
             StopAll();
         }
         else
